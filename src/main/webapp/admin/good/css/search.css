@@ -1,0 +1,57 @@
+.form {
+    padding-left: 15px;
+}
+
+.form input {
+    margin-right: 15px;
+}
+
+.base_info .row {
+    margin-top: 25px;
+}
+
+.detail {
+    padding-top: 30px;
+}
+
+.detail .title {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.detail .title h5{
+    margin-bottom: 0px;
+}
+
+.detail .title span {
+    color: #e51c23;
+    margin-left: 10px;
+}
+
+.detail .row {
+    margin-bottom: 30px;
+}
+
+.detail .row .item {
+    text-align: center;
+}
+
+.detail .row .item img {
+    width: 100%;
+}
+
+.detail .row .add {
+    width: 100%;
+    padding: 10%;
+}
+
+.detail .row .add:active {
+    background: #eee;
+}
+
+.operation {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

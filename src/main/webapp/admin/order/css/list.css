@@ -1,0 +1,14 @@
+.search input {
+    margin-right: 15px;
+}
+
+.search {
+    display: none;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.search #state_text{
+    margin-left: 10px;
+    margin-right: 10px;
+}

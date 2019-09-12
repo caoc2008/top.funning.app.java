@@ -1,0 +1,24 @@
+#image_file{
+    padding: 5px;
+    border-radius: 5px;
+    border-style: solid;
+    margin-right: 20px;
+    border-color: #eee;
+    border-width: 1px;
+}
+
+
+#postImage{
+    width: 350px;
+}
+
+.msg {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color:#d9534f;
+}
+
+.modify button {
+    margin-right: 10px;
+}
+

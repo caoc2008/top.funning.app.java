@@ -1,0 +1,47 @@
+.search {
+    margin-right: 15px;
+}
+
+
+.good_list .item {
+    display: flex;
+    flex-direction: column;
+    border: #eee solid 1px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+
+.good_list .item img {
+    width: 100%;
+    margin-bottom: 10px;
+    height: auto;
+}
+
+
+.form {
+    padding-left: 15px;
+}
+
+.form button {
+    margin-left: 15px;
+}
+
+.hide {
+    display: none;
+}
+
+
+.operation {
+    margin-top: 15px;
+
+}
+
+.text_color_red {
+    color: #e51c23;
+}
+
+
+.text_color_orange {
+    color: #ff9800;
+}

@@ -1,0 +1,229 @@
+body {
+    font-size: .875rem;
+}
+
+.feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+    position: static;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar .title {
+    background: #eeeeee;
+}
+
+.sidebar .title a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sidebar .title object {
+    width: 13px;
+    height: 13px;
+    margin-right: 10px;
+}
+
+.sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 48px; /* Height of navbar */
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
+}
+
+.sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #999;
+}
+
+.sidebar .nav-link.active {
+    color: #007bff;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+    color: inherit;
+}
+
+.sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+}
+
+/*
+ * Navbar
+ */
+
+.navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .form-control {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+/*
+ * Utilities
+ */
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/*
+* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+*/
+
+.line {
+    margin-bottom: 20px;
+}
+
+.hide {
+    display: none;
+}
+
+.red_point {
+    border-radius: 20px;
+    background: #d9534f;
+    color: #ffffff;
+    padding: 2px 5px 2px 5px;
+    font-size: 14px;
+    margin-left: 4px;
+}
+
+
+/* Loadding view Animation */
+
+.lv_floater {
+    padding: 3px;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.lv_container {
+    padding: 50px 40px 50px 40px;
+    background: #00000090;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.lv_load_view {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.lv_msg {
+    color: #fff;
+}
+
+.lv_point {
+    height: 20px;
+    width: 20px;
+    margin: 10px;
+    background: #fff;
+    border-radius: 15px;
+    animation-duration: 1.5s;
+    animation-name: lv_point;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.lv_point1 {
+    animation-delay: 0s;
+}
+
+.lv_point2 {
+    animation-delay: 0.5s;
+    opacity: 0.2;
+}
+
+.lv_point3 {
+    animation-delay: 1s;
+    opacity: 0.2;
+}
+
+@keyframes lv_point {
+    0% {
+        opacity: 0.2;
+    }
+
+    13.3% {
+        opacity: 0.2;
+    }
+
+    33.3% {
+        opacity: 1;
+    }
+
+    53.3% {
+        opacity: 0.2;
+    }
+
+    66.6% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+}
+
+/* Loadding view Animation */

@@ -1,0 +1,56 @@
+.form-signin {
+    width: 100%;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-label-group {
+    padding-bottom: 20px;
+}
+
+.form-label-title{
+
+    padding-bottom: 10px;
+}
+
+#error-msg {
+    padding-bottom: 15px;
+    padding-top: 15px;
+}
+
+.div-logo {
+    width: 128px;
+    height: 128px;
+}
+
+.div-logo img {
+    width: 128px;
+    height: 128px;
+}
+
+.div-logo img:active {
+    background: #f0f0f0;
+    width: 128px;
+    height: 128px;
+}
+
+.div-logo .btn-change {
+    width: 128px;
+    height: 128px;
+    margin-top: -128px;
+    display: none;
+    flex-direction: column-reverse;
+}
+
+.div-logo .btn-change:active {
+    background: #f0f0f0;
+}
+
+.div-logo .btn-change .text {
+    width: 128px;
+    padding-top: 5px;
+    text-align: center;
+    padding-bottom: 8px;
+    background: #ffffffa0;
+}
+
