@@ -23,8 +23,10 @@
 
     <div>
         <p class="lead">
+            您需要自行注册小程序账号，下载小程序源码并上传代码上线。<br/>
+            此外，您还需要注册微信支付商户号。<br/>
             小程序源码请到 <a href="https://github.com/MrNeptune/top.funning.app.mini">github</a> 中下载，
-            如需一条龙服务，请给我们邮件 ywj-1991@qq.com
+            如需一条龙服务，请给我们邮件 me@knxy-inc.com
         </p>
 
         <hr />
