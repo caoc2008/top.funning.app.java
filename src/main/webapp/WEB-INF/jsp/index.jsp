@@ -85,13 +85,10 @@
                         <span>服务端源码</span>
                     </button>
                 </div>
-                <br/><br/><br/>
 
                 <h2>查看详情</h2>
-                <img style="width: 200px; height:200px;" src="http://image.www.funning.top/image/qr_code.png"/>
+                <img class="img-qr-code" src="http://image.www.funning.top/image/qr_code.png"/>
 
-                <br/><br/><br/>
-                <a class="lead" target="_blank" href="login">服务端体验地址</a>
             </div>
             <div class="right col-md-5">
                 <img class="phone" src="http://image.www.funning.top/image/phone.png"/>
