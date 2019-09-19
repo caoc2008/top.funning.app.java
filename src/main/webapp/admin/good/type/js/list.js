@@ -24,6 +24,7 @@ let Mode = {
 
         $("#tr_" + id + " [role='input_state']").show();
         $("#tr_" + id + " [role='input_name']").show();
+        $("#tr_" + id + " [role='input_sort']").show();
 
         $("#tr_" + id + " [role='btn_edit']").hide();
         $("#tr_" + id + " [role='btn_delete']").hide();
@@ -35,6 +36,7 @@ let Mode = {
 
         $("#tr_" + id + " [role='input_state']").hide();
         $("#tr_" + id + " [role='input_name']").hide();
+        $("#tr_" + id + " [role='input_sort']").hide();
 
         $("#tr_" + id + " [role='btn_edit']").show();
         $("#tr_" + id + " [role='btn_delete']").show();
@@ -51,8 +53,14 @@ let Type = {
             return;
         }
 
+        let sort = $("[class='type_add'] [name='sort']").val();
+        if (!sort) {
+            alert("请输入排序");
+            return;
+        }
+
         LoadingDialog.show();
-        Web.request("M1006", {"name": name}, {
+        Web.request("M1006", {"name": name, "sort": sort}, {
             onSuccess: function (response) {
                 window.location.reload();
             },
@@ -79,18 +87,21 @@ let Type = {
     },
     modify: function (id) {
         let name = $("#tr_" + id + " [role='input_name']").val();
+        let sort = $("#tr_" + id + " [role='input_sort']").val();
         let state = $("#tr_" + id + " [role='input_state'] button:eq(0)").attr("state");
 
         LoadingDialog.show();
         Web.request("M1008", {
             "id": id,
             "name": name,
+            "sort": sort,
             "state": state
         }, {
             onSuccess: function (response) {
                 Mode.cancel(id);
 
                 $("#tr_" + id + " [role='sp_name']").html(name);
+                $("#tr_" + id + " [role='sp_sort']").html(sort);
 
                 if (state == "1") {
                     $("#tr_" + id + " [role='sp_state']").html("显示");

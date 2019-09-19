@@ -7,6 +7,15 @@ public class GoodType  extends BaseTable {
     private String name;
     private int state;
     private int shopId;
+    private int sort;
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
 
     public int getShopId() {
         return shopId;

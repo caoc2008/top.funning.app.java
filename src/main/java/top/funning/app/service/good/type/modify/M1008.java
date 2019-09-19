@@ -17,6 +17,8 @@ public class M1008 extends FnService {
     public String name;
     @Digits
     public String state;
+    @Digits
+    public String sort;
 
     @Override
     protected void run() throws Exception {
@@ -27,6 +29,7 @@ public class M1008 extends FnService {
         type.setName(name);
         type.setState(Integer.valueOf(state));
         type.setShopId(Integer.valueOf(shopId));
+        type.setSort(Integer.valueOf(sort));
         opreation.update(type);
         session.commit();
 

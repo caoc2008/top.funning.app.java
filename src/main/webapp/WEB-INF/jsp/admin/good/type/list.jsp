@@ -14,6 +14,7 @@
     <div class="type_add">
         <label>添加类型: </label>
         <input type="text" name="name" class="form-control form-control-sm col-md-3" placeholder="类型名称"/>
+        <input type="number" name="sort" class="form-control form-control-sm col-md-3" placeholder="排序"/>
         <button type="submit" onclick="Type.add()" class="btn btn-primary btn-sm col-md-2">添加</button>
     </div>
     <hr/>
@@ -24,6 +25,7 @@
                 <th>编号</th>
                 <th>名称</th>
                 <th>状态</th>
+                <th>排序</th>
                 <th>#</th>
             </tr>
             </thead>
@@ -55,6 +57,13 @@
                                 </button>
                             </div>
                         </div>
+                    </td>
+                    <td>
+                        <span role="sp_sort">${type.sort}</span>
+                        <input role="input_sort" type="number" value="${type.sort}"
+                               class="form-control form-control-sm col-md-3 hide"
+                               style="margin: 0"
+                               placeholder="请输入序号"/>
                     </td>
                     <td>
                         <button role="btn_edit" onclick="Mode.edit(${type.id})" class="btn btn-sm btn-primary">
