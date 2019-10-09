@@ -87,7 +87,7 @@
                 </div>
 
                 <h2>查看详情</h2>
-                <img class="img-qr-code" src="http://image.www.funning.top/image/qr_code.png"/>
+                <img class="img-qr-code" src="http://image.www.funning.top/image/qr_code.png?v=${version}"/>
 
             </div>
             <div class="right col-md-5">

@@ -11,8 +11,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="12">
-      <module name="top.funning.app" target="12" />
-      <module name="top.knxy.library.java" target="6" />
+      <module name="top.funning.app" target="1.8" />
+      <module name="top.knxy.library.java" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
