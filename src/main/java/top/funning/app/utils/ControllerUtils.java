@@ -12,10 +12,15 @@ import top.knxy.library.vehicle.Response;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 public class ControllerUtils {
+    public final static String TAG = "ControllerUtils";
 
-    private ControllerUtils(){}
+    private ControllerUtils() {
+    }
 
     public static ModelAndView getAdminView(HttpServletRequest request) {
         String path = request.getRequestURI().substring(1);
@@ -46,7 +51,10 @@ public class ControllerUtils {
     }
 
 
-    public static <T extends FnService> Response doService(Gson gson, Class<T> tClass, JsonObject data) {
+    public static <T extends FnService> Map doService(Gson gson, Class<T> tClass, JsonObject data) {
+        if (data == null) {
+            data = new JsonObject();
+        }
         T t = gson.fromJson(data, tClass);
         t.start();
         if (t.code == Code.Service.SUCCESS) {
@@ -65,7 +73,7 @@ public class ControllerUtils {
         modelAndView.setViewName("/error/500");
     }
 
-    public static <T extends FnService> T newService(HttpServletRequest request, Class<T> tClass)   {
+    public static <T extends FnService> T newService(HttpServletRequest request, Class<T> tClass) {
         try {
             HttpSession session = request.getSession();
             Object obj = session.getAttribute(V.shopId);
@@ -74,7 +82,7 @@ public class ControllerUtils {
                 t.shopId = obj.toString();
 
             return t;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

@@ -12,6 +12,7 @@ import top.funning.app.service.index.count.M1017;
 import top.funning.app.service.index.poster.put.M1021;
 import top.funning.app.service.index.poster.remove.M1022;
 import top.funning.app.service.login.pwd.reset.M1027;
+import top.funning.app.service.login.register.smscode.C1020;
 import top.funning.app.service.login.wechat.C1003;
 import top.funning.app.service.good.add.M1014;
 import top.funning.app.service.good.delete.M1012;
@@ -50,11 +51,63 @@ import javax.servlet.http.HttpSession;
 public class ApiController {
     public static final String TAG = "ApiController";
 
+    public static Class[] AndroidServiceList = {
+            C1020.class
+    };
+
+    @PostMapping("/android_api")
+    public Object android(HttpServletRequest request, @RequestBody String bodyStr) throws Exception {
+        LogUtils.i(TAG, bodyStr);
+
+        Gson gson = new Gson();
+        Body body = gson.fromJson(bodyStr, Body.class);
+
+        SessionInfo sessionInfo = (SessionInfo) request.getSession().getAttribute(V.userInfo);
+
+        if ("C1001".equals(body.cmd) || "C1002".equals(body.cmd)
+                || "C1004".equals(body.cmd) || "C1005".equals(body.cmd)
+                || "C1006".equals(body.cmd) || "C1009".equals(body.cmd)
+                || "C1010".equals(body.cmd) || "C1011".equals(body.cmd)) {
+            if (sessionInfo == null) {
+                return Response.create(Code.Client.NEED_LOGIN, "还没有登录");
+            }
+        }
+
+        if (sessionInfo != null && !TextUtils.isEmpty(sessionInfo.userId)) {
+            body.data.addProperty(V.userId, sessionInfo.userId);
+            body.data.addProperty(V.sessionKey, sessionInfo.sessionKey);
+            body.data.addProperty(V.openId, sessionInfo.openId);
+        }
+
+        if (C1003.class.getSimpleName().equals(body.cmd)) {
+            C1003 c1003 = gson.fromJson(body.data, C1003.class);
+            c1003.start();
+            if (c1003.code == Code.Service.SUCCESS) {
+                HttpSession session = request.getSession();
+                C1003.Data d = (C1003.Data) c1003.data;
+                session.setAttribute(V.userInfo, new SessionInfo(d.openid, d.sessionKey, d.userId));
+                return Response.createSuccess();
+            } else {
+                return Response.create(Code.Client.ERROR, c1003.msg);
+            }
+        }
+
+        for (Class cls : AndroidServiceList) {
+            String claName = cls.getSimpleName();
+            String cmd = body.cmd;
+            if (claName.equals(cmd)) {
+                return ControllerUtils.doService(gson, cls, body.data);
+            }
+        }
+
+        return Response.createError();
+    }
+
+
     public static Class[] clientServiceList = {
             C1001.class, C1002.class, C1003.class, C1004.class, C1005.class,
             C1006.class, C1007.class, C1008.class, C1009.class, C1010.class,
             C1011.class, C1012.class, C1013.class};
-
 
     @PostMapping("/client_api")
     public Object client(HttpServletRequest request, @RequestBody String bodyStr) throws Exception {
@@ -97,7 +150,7 @@ public class ApiController {
             String claName = cls.getSimpleName();
             String cmd = body.cmd;
             if (claName.equals(cmd)) {
-                return doService(gson, cls, body.data);
+                return ControllerUtils.doService(gson, cls, body.data);
             }
         }
 
@@ -145,22 +198,6 @@ public class ApiController {
         }
 
         return Response.createError();
-    }
-
-
-    public <T extends FnService> Response doService(Gson gson, Class<T> tClass, JsonObject data) {
-        T t = gson.fromJson(data, tClass);
-        t.start();
-        if (t.code == Code.Service.SUCCESS) {
-            return Response.createSuccess(t.data);
-        } else if (t.code == Code.Service.ERROR) {
-            return Response.create(Code.Client.ERROR, t.msg);
-        } else if (t.code > 1000 || t.code < -1000) {
-            return Response.create(String.valueOf(t.code), t.msg);
-        } else {
-            LogUtils.e(TAG, "unknown service code = " + t.code + " , cmd = " + tClass.getSimpleName());
-            return Response.createError();
-        }
     }
 
     public static class Body {

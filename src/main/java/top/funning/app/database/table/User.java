@@ -2,6 +2,8 @@ package top.funning.app.database.table;
 
 import top.knxy.library.bean.BaseTable;
 
+import java.util.Date;
+
 public class User  extends BaseTable {
 
     private int id;
@@ -13,6 +15,52 @@ public class User  extends BaseTable {
     private String city;
     private String country;
     private int shopId;
+
+    private String phone;
+    private String password;
+    private int fail;
+    private Date lastFailTime;
+    private String salt;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getFail() {
+        return fail;
+    }
+
+    public void setFail(int fail) {
+        this.fail = fail;
+    }
+
+    public Date getLastFailTime() {
+        return lastFailTime;
+    }
+
+    public void setLastFailTime(Date lastFailTime) {
+        this.lastFailTime = lastFailTime;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
     public int getShopId() {
         return shopId;

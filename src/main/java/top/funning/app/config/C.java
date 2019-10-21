@@ -30,7 +30,6 @@ public class C {
         }
     }
 
-
     public static class Baidu {
         public static final String mapApiUrl = getValue("baidu.mapApiUrl");
         public static final String key = getValue("baidu.key");
@@ -40,6 +39,11 @@ public class C {
         public static final String AccessKey = getValue("qiniu.AccessKey");
         public static final String SecretKey = getValue("qiniu.SecretKey");
         public static final String bucket = getValue("qiniu.bucket");
+    }
+
+    public static class Aliyun {
+        public static final String id = getValue("al.AccessKey.ID");
+        public static final String secrety = getValue("al.AccessKey.Secret");
     }
 
     public static class Redis {

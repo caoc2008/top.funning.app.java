@@ -1,6 +1,7 @@
 package top.funning.app.database.dal;
 
 import org.apache.ibatis.annotations.*;
+import top.funning.app.database.table.Admin;
 import top.funning.app.database.table.User;
 
 import java.util.List;
@@ -16,6 +17,12 @@ public interface UserDAL {
 
     @Select({"select id,openId from `User` where openId = #{openId} and shopId=#{shopId} limit 1"})
     User getUserByOpenId(@Param("openId") String openId,@Param("shopId") String shopId);
+
+    @Select({"select * from `User` where phone = #{phone} and shopId=#{shopId} limit 1"})
+    User getUserByPhone(@Param("phone") String phone,@Param("shopId") String shopId);
+
+    @Update("update `User` set fail=#{fail}, lastFailTime=#{lastFailTime} where id = #{id} and shopId = #{shopId}")
+    void updateFail(User user);
 
     @Select({"select * from `User` where id = #{id} and shopId = #{shopId} limit 1"})
     User getUser(@Param("id") String id,@Param("shopId") String shopId);

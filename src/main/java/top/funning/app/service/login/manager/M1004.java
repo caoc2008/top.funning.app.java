@@ -69,8 +69,6 @@ public class M1004 extends FnService {
             session.commit();
             createError(this, "password is wrong, it is the " + admin.getFail() + " time you input wrong password");
         }
-
-
     }
 
     public static Date getInitData() {
