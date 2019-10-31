@@ -1,6 +1,7 @@
 package top.funning.app.service.login.register;
 
 import net.sf.oval.constraint.Email;
+import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
 import top.funning.app.database.dal.AdminDAL;
@@ -14,7 +15,7 @@ import top.knxy.library.utils.PwdUtils;
 public class M1025 extends FnService {
     @Email
     public String username;
-    @NotNull
+    @Length(min = 6,max = 18)
     public String password;
 
     @Override

@@ -70,11 +70,9 @@ public class ManageController {
         service.start();
         Response response = new Response();
         if (service.code == Code.Service.SUCCESS) {
-            response.code = Code.Client.SUCCESS;
+            return Response.createSuccess();
         } else {
-            response.code = Code.Client.ERROR;
-            response.msg = service.msg;
+            return Response.createError(service.msg);
         }
-        return response;
     }
 }

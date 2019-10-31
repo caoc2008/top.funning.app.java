@@ -9,6 +9,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.google.gson.Gson;
 import net.sf.oval.constraint.Digits;
 import net.sf.oval.constraint.NotNull;
+import top.funning.app.bean.SmsInfo;
 import top.funning.app.config.C;
 import top.funning.app.database.Redis;
 import top.funning.app.service.FnService;
@@ -32,19 +33,16 @@ public class C1020 extends FnService {
     protected void run() throws Exception {
 
         Gson gson = new Gson();
-
         String codeId = ServiceUtils.getUUid();
 
-
-            String code = getCode();
-            HashMap<String, Object> m = new HashMap<>();
-        m.put("code", code);
-        m.put("data", new Date().getTime());
-        m.put("errorTime", 0);
-            String str = gson.toJson(m);
-            Redis.set(codeId, str, 900);
-
-
+        String code = getCode();
+        SmsInfo smsInfo = new SmsInfo();
+        smsInfo.setPhone(phone);
+        smsInfo.setCode(code);
+        smsInfo.setData(new Date().getTime());
+        smsInfo.setErrorTime(0);
+        String str = gson.toJson(smsInfo);
+        Redis.set(codeId, str, 900);
 
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", C.Aliyun.id, C.Aliyun.secrety);
         IAcsClient client = new DefaultAcsClient(profile);
@@ -59,7 +57,6 @@ public class C1020 extends FnService {
         request.putQueryParameter("PhoneNumbers", phone);
         request.putQueryParameter("SignName", "饭宁");
         request.putQueryParameter("TemplateCode", "SMS_175571331");
-
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("code", code);
@@ -131,10 +128,9 @@ public class C1020 extends FnService {
         public String codeId;
     }
 
-
     private static String getCode() {
         String result = "";
-        Random r = new Random(1);
+        Random r = new Random();
         for (int i = 0; i < 6; i++) {
             result += r.nextInt(10);
         }

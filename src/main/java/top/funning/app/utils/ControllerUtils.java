@@ -3,6 +3,8 @@ package top.funning.app.utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.springframework.web.servlet.ModelAndView;
+import top.funning.app.bean.RequestBody;
+import top.funning.app.controller.ApiController;
 import top.funning.app.service.FnService;
 import top.knxy.library.BaseService;
 import top.knxy.library.config.Code;
@@ -12,8 +14,6 @@ import top.knxy.library.vehicle.Response;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class ControllerUtils {
@@ -50,12 +50,24 @@ public class ControllerUtils {
         return modelAndView;
     }
 
+    public static <T extends FnService> Map doService(Gson gson, Class<T> tClass, RequestBody body) {
+        if (body.data == null) {
+            body.data = new JsonObject();
+        }
+        T t = gson.fromJson(body.data, tClass);
+        t.shopId = body.shopId;
+        return doService(t, tClass);
+    }
 
     public static <T extends FnService> Map doService(Gson gson, Class<T> tClass, JsonObject data) {
         if (data == null) {
             data = new JsonObject();
         }
         T t = gson.fromJson(data, tClass);
+        return doService(t, tClass);
+    }
+
+    public static <T extends FnService> Map doService(T t, Class<T> tClass) {
         t.start();
         if (t.code == Code.Service.SUCCESS) {
             return Response.createSuccess(t.data);

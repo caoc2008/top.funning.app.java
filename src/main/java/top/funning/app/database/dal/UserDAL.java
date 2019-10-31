@@ -27,7 +27,7 @@ public interface UserDAL {
     @Select({"select * from `User` where id = #{id} and shopId = #{shopId} limit 1"})
     User getUser(@Param("id") String id,@Param("shopId") String shopId);
 
-    @Insert({"insert into User(openId,shopId) values(#{openId},#{shopId})"})
+    @Insert({"insert into User(openId,shopId,phone,salt,password) values(#{openId},#{shopId},#{phone},#{salt},#{password})"})
     @Options(useGeneratedKeys = true, keyProperty = "id")
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", resultType = Integer.class, before = false)
     int insert(User user);

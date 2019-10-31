@@ -3,15 +3,14 @@ package top.funning.app.controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import top.funning.app.service.FnService;
+import top.funning.app.bean.RequestBody;
 import top.funning.app.service.address.poster.computer.C1013;
 import top.funning.app.service.index.C1001;
 import top.funning.app.service.index.count.M1017;
 import top.funning.app.service.index.poster.put.M1021;
 import top.funning.app.service.index.poster.remove.M1022;
-import top.funning.app.service.login.pwd.reset.M1027;
+import top.funning.app.service.login.register.C1022;
 import top.funning.app.service.login.register.smscode.C1020;
 import top.funning.app.service.login.wechat.C1003;
 import top.funning.app.service.good.add.M1014;
@@ -52,15 +51,15 @@ public class ApiController {
     public static final String TAG = "ApiController";
 
     public static Class[] AndroidServiceList = {
-            C1020.class
+            C1020.class, C1022.class
     };
 
     @PostMapping("/android_api")
-    public Object android(HttpServletRequest request, @RequestBody String bodyStr) throws Exception {
+    public Object android(HttpServletRequest request, @org.springframework.web.bind.annotation.RequestBody String bodyStr) throws Exception {
         LogUtils.i(TAG, bodyStr);
 
         Gson gson = new Gson();
-        Body body = gson.fromJson(bodyStr, Body.class);
+        RequestBody body = gson.fromJson(bodyStr, RequestBody.class);
 
         SessionInfo sessionInfo = (SessionInfo) request.getSession().getAttribute(V.userInfo);
 
@@ -96,7 +95,7 @@ public class ApiController {
             String claName = cls.getSimpleName();
             String cmd = body.cmd;
             if (claName.equals(cmd)) {
-                return ControllerUtils.doService(gson, cls, body.data);
+                return ControllerUtils.doService(gson, cls, body);
             }
         }
 
@@ -110,11 +109,11 @@ public class ApiController {
             C1011.class, C1012.class, C1013.class};
 
     @PostMapping("/client_api")
-    public Object client(HttpServletRequest request, @RequestBody String bodyStr) throws Exception {
+    public Object client(HttpServletRequest request, @org.springframework.web.bind.annotation.RequestBody String bodyStr) throws Exception {
         LogUtils.i(TAG, bodyStr);
 
         Gson gson = new Gson();
-        Body body = gson.fromJson(bodyStr, Body.class);
+        RequestBody body = gson.fromJson(bodyStr, RequestBody.class);
 
         SessionInfo sessionInfo = (SessionInfo) request.getSession().getAttribute(V.userInfo);
 
@@ -165,7 +164,7 @@ public class ApiController {
     };
 
     @PostMapping("/admin_api")
-    public Object admin(HttpServletRequest request, @RequestBody String bodyStr) {
+    public Object admin(HttpServletRequest request, @org.springframework.web.bind.annotation.RequestBody String bodyStr) {
 
         Object objAdminId = request.getSession().getAttribute(V.adminId);
         Object objShopId = request.getSession().getAttribute(V.shopId);
@@ -179,7 +178,7 @@ public class ApiController {
         LogUtils.i(TAG, bodyStr);
 
         Gson gson = new Gson();
-        Body body = gson.fromJson(bodyStr, Body.class);
+        RequestBody body = gson.fromJson(bodyStr, RequestBody.class);
 
         body.data.addProperty(V.shopId, shopId);
 
@@ -200,8 +199,4 @@ public class ApiController {
         return Response.createError();
     }
 
-    public static class Body {
-        public String cmd;
-        public JsonObject data;
-    }
 }
