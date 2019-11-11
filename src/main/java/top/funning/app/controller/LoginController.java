@@ -5,13 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import top.funning.app.database.table.Admin;
-import top.funning.app.service.login.pwd.reset.M1027;
-import top.funning.app.service.login.pwd.reset.email.check.M1028;
-import top.funning.app.service.login.pwd.reset.email.send.M1026;
-import top.funning.app.service.login.manager.M1004;
-import top.funning.app.service.login.register.M1025;
+import top.funning.app.service.identify.password.manager.reset.M1027;
+import top.funning.app.service.identify.password.manager.reset.email.check.M1028;
+import top.funning.app.service.identify.password.manager.reset.email.send.M1026;
+import top.funning.app.service.identify.login.manager.M1004;
+import top.funning.app.service.identify.register.manager.M1025;
 import top.knxy.library.config.Code;
 import top.knxy.library.config.V;
 

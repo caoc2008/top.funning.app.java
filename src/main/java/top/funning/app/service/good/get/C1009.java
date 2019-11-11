@@ -3,6 +3,7 @@ package top.funning.app.service.good.get;
 import com.google.gson.Gson;
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
+import top.funning.app.config.C;
 import top.funning.app.database.dal.GoodDAL;
 import top.funning.app.service.FnService;
 import top.knxy.library.utils.ServiceUtils;
@@ -17,7 +18,7 @@ public class C1009 extends FnService {
     @Override
     protected void run() throws Exception {
         SqlSession session = getSqlSession();
-        Good good = ServiceUtils.mapToBean(session.getMapper(GoodDAL.class).getGoodForUser(id,shopId), Good.class);
+        Good good = ServiceUtils.mapToBean(session.getMapper(GoodDAL.class).getGoodForUser(id, shopId), Good.class);
 
         if (good == null) {
             createError(this);
@@ -37,9 +38,24 @@ public class C1009 extends FnService {
         data.imageUrl = good.getImageUrl();
         data.price = good.getPrice();
 
+        if (data.header != null && data.header.imageList != null) {
+            for (int i = 0; i < data.header.imageList.size(); i++) {
+                String url = data.header.imageList.get(i);
+                url = C.App.imageHost + url;
+                data.header.imageList.set(i, url);
+            }
+        }
+
+        if (data.detail != null && data.detail.imageList != null) {
+            for (int i = 0; i < data.detail.imageList.size(); i++) {
+                String url = data.detail.imageList.get(i);
+                url = C.App.imageHost + url;
+                data.detail.imageList.set(i, url);
+            }
+        }
+
         this.data = data;
         createSuccess(this);
-
     }
 
     public static class Data {
@@ -60,6 +76,7 @@ public class C1009 extends FnService {
         }
     }
 
+    //TODO
     public static class Good {
         public String id;
         public String name;

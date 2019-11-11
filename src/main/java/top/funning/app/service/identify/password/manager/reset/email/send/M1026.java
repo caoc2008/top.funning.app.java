@@ -1,4 +1,4 @@
-package top.funning.app.service.login.pwd.reset.email.send;
+package top.funning.app.service.identify.password.manager.reset.email.send;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 import net.sf.oval.constraint.Email;
@@ -6,10 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import top.funning.app.config.C;
 import top.funning.app.database.Redis;
 import top.funning.app.database.dal.AdminDAL;
-import top.funning.app.database.dal.UserDAL;
 import top.funning.app.database.table.Admin;
 import top.funning.app.service.FnService;
-import top.knxy.library.utils.MyBatisUtils;
 import top.knxy.library.utils.ServiceUtils;
 
 import javax.mail.*;

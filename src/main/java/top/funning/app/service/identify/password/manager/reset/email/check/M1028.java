@@ -1,4 +1,4 @@
-package top.funning.app.service.login.pwd.reset.email.check;
+package top.funning.app.service.identify.password.manager.reset.email.check;
 
 import net.sf.oval.constraint.NotNull;
 import top.funning.app.database.Redis;

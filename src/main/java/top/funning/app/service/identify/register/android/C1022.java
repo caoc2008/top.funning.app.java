@@ -1,4 +1,4 @@
-package top.funning.app.service.login.register;
+package top.funning.app.service.identify.register.android;
 
 import com.google.gson.Gson;
 import net.sf.oval.constraint.Length;
@@ -11,10 +11,8 @@ import top.funning.app.database.dal.UserDAL;
 import top.funning.app.database.table.Shop;
 import top.funning.app.database.table.User;
 import top.funning.app.service.FnService;
-import top.knxy.library.BaseService;
 import top.knxy.library.utils.LogUtils;
 import top.knxy.library.utils.PwdUtils;
-import top.knxy.library.utils.ServiceUtils;
 import top.knxy.library.utils.TextUtils;
 
 public class C1022 extends FnService {
@@ -94,6 +92,7 @@ public class C1022 extends FnService {
 
         userDAL.insert(user);
         session.commit();
+        Redis.del(smsCodeId);
         createSuccess(this);
     }
 }

@@ -1,6 +1,7 @@
 package top.funning.app.service.good.search;
 
-import top.funning.app.database.cache.Good;
+import top.funning.app.config.C;
+import top.funning.app.database.cache.GoodCache;
 import top.funning.app.service.FnService;
 import top.knxy.library.utils.TextUtils;
 
@@ -19,20 +20,23 @@ public class C1012 extends FnService {
             return;
         }
 
-        data.dataList = Good.search(word,shopId);
+        data.dataList = GoodCache.search(word, shopId);
+        for (GoodCache.Item item : data.dataList) {
+            item.setImageUrl(C.App.imageHost + item.getImageUrl());
+        }
         this.data = data;
         createSuccess(this);
     }
 
     public static class Data {
 
-        private ArrayList<Good.Item> dataList;
+        private ArrayList<GoodCache.Item> dataList;
 
-        public ArrayList<Good.Item> getDataList() {
+        public ArrayList<GoodCache.Item> getDataList() {
             return dataList;
         }
 
-        public void setDataList(ArrayList<Good.Item> dataList) {
+        public void setDataList(ArrayList<GoodCache.Item> dataList) {
             this.dataList = dataList;
         }
     }

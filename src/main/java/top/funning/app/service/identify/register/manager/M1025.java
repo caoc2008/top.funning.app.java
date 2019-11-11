@@ -1,8 +1,7 @@
-package top.funning.app.service.login.register;
+package top.funning.app.service.identify.register.manager;
 
 import net.sf.oval.constraint.Email;
 import net.sf.oval.constraint.Length;
-import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
 import top.funning.app.database.dal.AdminDAL;
 import top.funning.app.database.dal.ShopDAL;

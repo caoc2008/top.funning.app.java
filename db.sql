@@ -31,6 +31,8 @@ create table `GoodType`
 state = {"1","2"}
 state = 1 : 上架
 state = 2 : 下架
+
+type < 1 代表没有type
 **/
 create table `Good`
 (
@@ -45,7 +47,7 @@ create table `Good`
   stock       int            null,
   state       int default 1  null,
   type        int            null,
-  shopId       int
+  shopId      int
 );
 
 

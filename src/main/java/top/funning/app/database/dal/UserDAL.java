@@ -32,6 +32,6 @@ public interface UserDAL {
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", resultType = Integer.class, before = false)
     int insert(User user);
 
-    @Update("update `User` set nickName=#{nickName},gender=#{gender},avatarUrl=#{avatarUrl},province=#{province},city=#{city},country=#{country} where id=#{id} and shopId=#{shopId}")
+    @Update("update `User` set nickName=#{nickName},gender=#{gender},avatarUrl=#{avatarUrl},province=#{province},city=#{city},country=#{country},password=#{password},salt=#{salt} where id=#{id} and shopId=#{shopId}")
     void update(User user);
 }

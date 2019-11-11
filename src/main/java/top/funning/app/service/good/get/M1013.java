@@ -4,6 +4,8 @@ import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
 import top.funning.app.database.dal.GoodDAL;
 import top.funning.app.database.dal.GoodTypeDAL;
+import top.funning.app.database.table.Good;
+import top.funning.app.database.table.GoodType;
 import top.funning.app.service.FnService;
 import top.knxy.library.utils.ServiceUtils;
 import top.knxy.library.utils.TextUtils;
@@ -20,14 +22,16 @@ public class M1013 extends FnService {
     protected void run() throws Exception {
         SqlSession session = getSqlSession();
         GoodDAL gDal = session.getMapper(GoodDAL.class);
-        GoodTypeDAL gtDal = session.getMapper(GoodTypeDAL.class);
-        Good good = ServiceUtils.mapToBean(gDal.getGoodForAdmin(id,shopId), Good.class);
+        Good good = gDal.getGoodForAdmin(id, shopId);
         if (good == null) {
             createError(this, "没有这个商品");
             return;
         }
 
-        Data data = new Data(good, gtDal.getUsefulList(shopId));
+        GoodTypeDAL gtDal = session.getMapper(GoodTypeDAL.class);
+        List<GoodType> gtList = gtDal.getUsefulList(shopId);
+
+        Data data = new Data(good, gtList);
         this.data = data;
 
         createSuccess(this);
@@ -43,29 +47,39 @@ public class M1013 extends FnService {
         private String stateStr;
         private String type;
         private String typeStr;
-        private List<GoodType> typeList;
+        private List<Type> typeList;
         private String detail;
 
-        public Data(Good good, List<Map> maps) throws Exception {
-            this.id = good.id;
-            this.name = good.name;
-            this.description = good.description;
-            this.imageUrl = good.imageUrl;
-            this.price = good.price;
-            this.detail = good.content;
-            this.state = good.state;
-            if ("1".equals(good.state)) {
+        public Data(Good good, List<GoodType> types) throws Exception {
+            this.id = String.valueOf(good.getId());
+            this.name = good.getName();
+            this.description = good.getDescription();
+            this.imageUrl = good.getImageUrl();
+            this.price = good.getPrice();
+            this.detail = good.getContent();
+            this.state = String.valueOf(good.getState());
+            if (1 == good.getState()) {
                 this.stateStr = "出售中";
-            } else if ("2".equals(good.state)) {
+            } else if (2 == good.getState()) {
                 this.stateStr = "已下架";
             }
-            this.type = good.type;
-            this.typeStr = (TextUtils.isEmpty(good.typeStr) ? " - - " : good.typeStr);
+            this.type = String.valueOf(good.getType());
 
-            this.typeList = new ArrayList<>(maps.size());
+            if (good.getType() < 1) {
+                this.typeStr = " - - ";
+            } else {
+                for (GoodType type : types) {
+                    if (type.getId() == good.getType()) {
+                        this.typeStr = type.getName();
+                        break;
+                    }
+                }
+            }
 
-            for (Map map : maps) {
-                this.typeList.add(ServiceUtils.mapToBean(map, GoodType.class));
+            this.typeList = new ArrayList<>(types.size());
+
+            for (GoodType type : types) {
+                this.typeList.add(new Type(type));
             }
 
         }
@@ -142,11 +156,11 @@ public class M1013 extends FnService {
             this.typeStr = typeStr;
         }
 
-        public List<GoodType> getTypeList() {
+        public List<Type> getTypeList() {
             return typeList;
         }
 
-        public void setTypeList(List<GoodType> typeList) {
+        public void setTypeList(List<Type> typeList) {
             this.typeList = typeList;
         }
 
@@ -157,112 +171,32 @@ public class M1013 extends FnService {
         public void setDetail(String detail) {
             this.detail = detail;
         }
-    }
 
-    public static class GoodType {
-        private String id;
-        private String name;
+        public static class Type {
+            private String id;
+            private String name;
 
-        public String getId() {
-            return id;
+            public Type(GoodType type) {
+                this.id = String.valueOf(type.getId());
+                this.name = type.getName();
+            }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getName() {
+                return name;
+            }
+
+            public void setName(String name) {
+                this.name = name;
+            }
         }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
-
-    public static class Good {
-        private String id;
-        private String name;
-        private String description;
-        private String imageUrl;
-        private String price;
-        private String content;
-        private String state;
-        private String type;
-        private String typeStr;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public String getImageUrl() {
-            return imageUrl;
-        }
-
-        public void setImageUrl(String imageUrl) {
-            this.imageUrl = imageUrl;
-        }
-
-        public String getPrice() {
-            return price;
-        }
-
-        public void setPrice(String price) {
-            this.price = price;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
-
-        public String getState() {
-            return state;
-        }
-
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-        public String getTypeStr() {
-            return typeStr;
-        }
-
-        public void setTypeStr(String typeStr) {
-            this.typeStr = typeStr;
-        }
-
     }
 
 

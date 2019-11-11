@@ -1,4 +1,4 @@
-package top.funning.app.service.login.pwd.reset;
+package top.funning.app.service.identify.password.manager.reset;
 
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotNull;

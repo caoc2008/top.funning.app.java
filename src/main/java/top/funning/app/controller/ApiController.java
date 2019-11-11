@@ -1,18 +1,21 @@
 package top.funning.app.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import top.funning.app.bean.RequestBody;
+import top.funning.app.bean.PostBody;
+import top.funning.app.database.table.User;
 import top.funning.app.service.address.poster.computer.C1013;
+import top.funning.app.service.identify.password.android.C1023;
 import top.funning.app.service.index.C1001;
 import top.funning.app.service.index.count.M1017;
 import top.funning.app.service.index.poster.put.M1021;
 import top.funning.app.service.index.poster.remove.M1022;
-import top.funning.app.service.login.register.C1022;
-import top.funning.app.service.login.register.smscode.C1020;
-import top.funning.app.service.login.wechat.C1003;
+import top.funning.app.service.identify.login.android.C1021;
+import top.funning.app.service.identify.register.android.C1022;
+import top.funning.app.service.identify.login.android.smscode.C1020;
+import top.funning.app.service.identify.login.wechat.C1003;
 import top.funning.app.service.good.add.M1014;
 import top.funning.app.service.good.delete.M1012;
 import top.funning.app.service.good.get.C1009;
@@ -32,7 +35,7 @@ import top.funning.app.service.order.refund.admin.M1018;
 import top.funning.app.service.order.refund.client.C1008;
 import top.funning.app.service.pay.C1011;
 import top.funning.app.service.qiniu.uploadtoken.get.M1015;
-import top.funning.app.service.SessionInfo;
+import top.funning.app.bean.WcSessionInfo;
 import top.funning.app.service.shop.modify.M1029;
 import top.funning.app.service.shop.modify.logo.M1032;
 import top.funning.app.service.shop.modify.p12.M1031;
@@ -51,43 +54,35 @@ public class ApiController {
     public static final String TAG = "ApiController";
 
     public static Class[] AndroidServiceList = {
-            C1020.class, C1022.class
+            C1001.class, C1005.class, C1009.class, C1012.class, C1020.class, C1021.class, C1022.class, C1023.class
     };
 
     @PostMapping("/android_api")
-    public Object android(HttpServletRequest request, @org.springframework.web.bind.annotation.RequestBody String bodyStr) throws Exception {
+    public Object android(HttpServletRequest request, @RequestBody String bodyStr) throws Exception {
         LogUtils.i(TAG, bodyStr);
 
         Gson gson = new Gson();
-        RequestBody body = gson.fromJson(bodyStr, RequestBody.class);
+        PostBody body = gson.fromJson(bodyStr, PostBody.class);
 
-        SessionInfo sessionInfo = (SessionInfo) request.getSession().getAttribute(V.userInfo);
+        Object userId = request.getSession().getAttribute(V.userId);
 
-        if ("C1001".equals(body.cmd) || "C1002".equals(body.cmd)
-                || "C1004".equals(body.cmd) || "C1005".equals(body.cmd)
-                || "C1006".equals(body.cmd) || "C1009".equals(body.cmd)
-                || "C1010".equals(body.cmd) || "C1011".equals(body.cmd)) {
-            if (sessionInfo == null) {
+        if ("C1005".equals(body.cmd)) {
+            if (userId == null) {
                 return Response.create(Code.Client.NEED_LOGIN, "还没有登录");
             }
         }
 
-        if (sessionInfo != null && !TextUtils.isEmpty(sessionInfo.userId)) {
-            body.data.addProperty(V.userId, sessionInfo.userId);
-            body.data.addProperty(V.sessionKey, sessionInfo.sessionKey);
-            body.data.addProperty(V.openId, sessionInfo.openId);
-        }
-
-        if (C1003.class.getSimpleName().equals(body.cmd)) {
-            C1003 c1003 = gson.fromJson(body.data, C1003.class);
-            c1003.start();
-            if (c1003.code == Code.Service.SUCCESS) {
+        if (C1021.class.getSimpleName().equals(body.cmd)) {
+            C1021 service = gson.fromJson(body.data, C1021.class);
+            service.shopId = body.shopId;
+            service.start();
+            if (service.code == Code.Service.SUCCESS) {
                 HttpSession session = request.getSession();
-                C1003.Data d = (C1003.Data) c1003.data;
-                session.setAttribute(V.userInfo, new SessionInfo(d.openid, d.sessionKey, d.userId));
+                User u = (User) service.data;
+                session.setAttribute(V.userId, u.getId());
                 return Response.createSuccess();
             } else {
-                return Response.create(Code.Client.ERROR, c1003.msg);
+                return Response.create(Code.Client.ERROR, service.msg);
             }
         }
 
@@ -113,9 +108,9 @@ public class ApiController {
         LogUtils.i(TAG, bodyStr);
 
         Gson gson = new Gson();
-        RequestBody body = gson.fromJson(bodyStr, RequestBody.class);
+        PostBody body = gson.fromJson(bodyStr, PostBody.class);
 
-        SessionInfo sessionInfo = (SessionInfo) request.getSession().getAttribute(V.userInfo);
+        WcSessionInfo sessionInfo = (WcSessionInfo) request.getSession().getAttribute(V.userInfo);
 
         if ("C1001".equals(body.cmd) || "C1002".equals(body.cmd)
                 || "C1004".equals(body.cmd) || "C1005".equals(body.cmd)
@@ -138,7 +133,7 @@ public class ApiController {
             if (c1003.code == Code.Service.SUCCESS) {
                 HttpSession session = request.getSession();
                 C1003.Data d = (C1003.Data) c1003.data;
-                session.setAttribute(V.userInfo, new SessionInfo(d.openid, d.sessionKey, d.userId));
+                session.setAttribute(V.userInfo, new WcSessionInfo(d.openid, d.sessionKey, d.userId));
                 return Response.createSuccess();
             } else {
                 return Response.create(Code.Client.ERROR, c1003.msg);
@@ -164,7 +159,7 @@ public class ApiController {
     };
 
     @PostMapping("/admin_api")
-    public Object admin(HttpServletRequest request, @org.springframework.web.bind.annotation.RequestBody String bodyStr) {
+    public Object admin(HttpServletRequest request, @RequestBody String bodyStr) {
 
         Object objAdminId = request.getSession().getAttribute(V.adminId);
         Object objShopId = request.getSession().getAttribute(V.shopId);
@@ -178,7 +173,7 @@ public class ApiController {
         LogUtils.i(TAG, bodyStr);
 
         Gson gson = new Gson();
-        RequestBody body = gson.fromJson(bodyStr, RequestBody.class);
+        PostBody body = gson.fromJson(bodyStr, PostBody.class);
 
         body.data.addProperty(V.shopId, shopId);
 
@@ -198,5 +193,4 @@ public class ApiController {
 
         return Response.createError();
     }
-
 }

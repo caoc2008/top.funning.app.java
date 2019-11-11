@@ -3,8 +3,11 @@ package top.funning.app.service.good.modify;
 import com.google.gson.Gson;
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
+import top.funning.app.database.cache.GoodCache;
 import top.funning.app.database.dal.GoodDAL;
+import top.funning.app.database.dal.GoodTypeDAL;
 import top.funning.app.database.table.Good;
+import top.funning.app.database.table.GoodType;
 import top.funning.app.service.FnService;
 import top.knxy.library.utils.TextUtils;
 
@@ -57,6 +60,7 @@ public class M1011 extends FnService {
             detail.content.imageList = new ArrayList<>();
         }
 
+
         Good good = new Good();
         good.setId(Integer.valueOf(id));
         good.setShopId(Integer.valueOf(shopId));
@@ -84,6 +88,17 @@ public class M1011 extends FnService {
         good.setContent(new Gson().toJson(content));
 
         SqlSession session = getSqlSession();
+
+        if (good.getType() > 1) {
+            GoodTypeDAL gtDal = session.getMapper(GoodTypeDAL.class);
+            GoodType type = gtDal.get(good.getType(),shopId);
+            if(type == null){
+                createError(this);
+                return;
+            }
+        }
+
+
         GoodDAL gDal = session.getMapper(GoodDAL.class);
         int row = gDal.update(good);
         session.commit();
@@ -94,7 +109,7 @@ public class M1011 extends FnService {
         }
 
         //删除缓存
-        top.funning.app.database.cache.Good.clear(shopId);
+        GoodCache.clear(shopId);
         createSuccess(this);
     }
 

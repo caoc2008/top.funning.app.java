@@ -1,4 +1,4 @@
-package top.funning.app.service.login.pwd.modify;
+package top.funning.app.service.identify.password.manager.modify;
 
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotNull;
@@ -6,9 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import top.funning.app.database.dal.AdminDAL;
 import top.funning.app.database.table.Admin;
 import top.funning.app.service.FnService;
-import top.knxy.library.BaseService;
 import top.knxy.library.utils.PwdUtils;
-import top.knxy.library.utils.TextUtils;
 
 import javax.sql.rowset.serial.SerialException;
 

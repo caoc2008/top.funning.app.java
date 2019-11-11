@@ -2,15 +2,15 @@ package top.funning.app.database.cache;
 
 import org.apache.ibatis.session.SqlSession;
 import top.funning.app.database.dal.GoodDAL;
+import top.funning.app.database.table.Good;
 import top.knxy.library.utils.MyBatisUtils;
-import top.knxy.library.utils.ServiceUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Good {
+public class GoodCache {
 
     private final static Map<String, List<Item>> data = new HashMap<>();
 
@@ -24,12 +24,17 @@ public class Good {
     public static ArrayList<Item> search(String keyword, String shopId) throws Exception {
         List<Item> goods = data.get(shopId);
 
+        if (goods == null) {
+            goods = new ArrayList<>();
+            data.put(shopId, goods);
+        }
+
         if (goods.isEmpty()) {
             SqlSession session = MyBatisUtils.getSession();
             GoodDAL dal = session.getMapper(GoodDAL.class);
-            List<Map> list = dal.getSearchList(shopId);
-            for (Map map : list) {
-                goods.add(ServiceUtils.mapToBean(map, Item.class));
+            List<Good> list = dal.getSearchList(shopId);
+            for (Good good : list) {
+                goods.add(new Item(good));
             }
             session.close();
         }
@@ -48,20 +53,48 @@ public class Good {
         return result;
     }
 
-    private static Item copy(Item preitem) {
+    public static void refresh(String shopId) throws Exception {
+        List<Item> goods = data.get(shopId);
+
+        if (goods == null) {
+            return;
+        }
+        goods.clear();
+
+        SqlSession session = MyBatisUtils.getSession();
+        GoodDAL dal = session.getMapper(GoodDAL.class);
+        List<Good> list = dal.getSearchList(shopId);
+        for (Good good : list) {
+            goods.add(new Item(good));
+        }
+        session.close();
+    }
+
+    private static Item copy(Item item) {
         Item newItem = new Item();
-        newItem.id = preitem.id;
-        newItem.name = preitem.name;
-        newItem.imageUrl = preitem.imageUrl;
-        newItem.price = preitem.price;
+        newItem.id = item.getId();
+        newItem.name = item.getName();
+        newItem.imageUrl = item.getImageUrl();
+        newItem.price = item.getPrice();
         return newItem;
     }
+
 
     public static class Item {
         private String id;
         private String name;
         private String imageUrl;
         private String price;
+
+        public Item() {
+        }
+
+        public Item(Good good) {
+            this.id = String.valueOf(good.getId());
+            this.name = good.getName();
+            this.imageUrl = good.getImageUrl();
+            this.price = good.getPrice();
+        }
 
         public String getId() {
             return id;

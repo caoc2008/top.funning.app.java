@@ -1,12 +1,11 @@
 package top.funning.app.service.good.type.delete;
 
 import net.sf.oval.constraint.Digits;
-import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
+import top.funning.app.database.cache.GoodCache;
+import top.funning.app.database.dal.GoodDAL;
 import top.funning.app.database.dal.GoodTypeDAL;
 import top.funning.app.service.FnService;
-import top.knxy.library.BaseService;
-import top.knxy.library.utils.TextUtils;
 
 public class M1009 extends FnService {
     @Digits
@@ -17,7 +16,12 @@ public class M1009 extends FnService {
 
         SqlSession session = getSqlSession();
         GoodTypeDAL dal = session.getMapper(GoodTypeDAL.class);
-        int result = dal.delete(id,shopId);
+        int result = dal.delete(id, shopId);
+
+        GoodDAL goodDAL = session.getMapper(GoodDAL.class);
+        goodDAL.updateState(id, shopId);
+
+        GoodCache.refresh(shopId);
         session.commit();
 
         if (result < 1) {

@@ -20,7 +20,6 @@ public class C1005 extends FnService {
         List<Order> orders = mapper.getListByUserId(userId,shopId);
         this.data = new OrderCollection(orders);
 
-
         createSuccess(this);
     }
 

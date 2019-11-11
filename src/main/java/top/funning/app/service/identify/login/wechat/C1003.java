@@ -1,19 +1,15 @@
-package top.funning.app.service.login.wechat;
+package top.funning.app.service.identify.login.wechat;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
-import top.funning.app.config.C;
 import top.funning.app.database.dal.ShopDAL;
 import top.funning.app.database.dal.UserDAL;
 import top.funning.app.database.table.Shop;
 import top.funning.app.database.table.User;
 import top.funning.app.service.FnService;
-import top.knxy.library.BaseService;
 import top.knxy.library.ServiceException;
-import top.knxy.library.config.Code;
-import top.knxy.library.service.wechat.result.get.CL1002;
 import top.knxy.library.utils.TextUtils;
 import top.knxy.library.utils.WebUtils;
 
@@ -67,7 +63,6 @@ public class C1003 extends FnService {
 
         this.data = new Data(wxrp, user.getId());
         createSuccess(this);
-
     }
 
     public static class Data {

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
+import top.funning.app.database.cache.GoodCache;
 import top.funning.app.database.dal.GoodDAL;
 import top.funning.app.database.table.Good;
 import top.funning.app.service.FnService;
@@ -98,7 +99,7 @@ public class M1014 extends FnService {
         }
 
         //删除缓存
-        top.funning.app.database.cache.Good.clear(shopId);
+        GoodCache.clear(shopId);
 
         createSuccess(this);
 

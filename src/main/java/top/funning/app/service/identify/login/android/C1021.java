@@ -1,25 +1,20 @@
-package top.funning.app.service.login.android;
+package top.funning.app.service.identify.login.android;
 
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
-import top.funning.app.database.dal.AdminDAL;
 import top.funning.app.database.dal.UserDAL;
-import top.funning.app.database.table.Admin;
 import top.funning.app.database.table.User;
-import top.knxy.library.BaseService;
+import top.funning.app.service.FnService;
 import top.knxy.library.utils.PwdUtils;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class C1021 extends BaseService {
+public class C1021 extends FnService {
 
     @NotNull
     public String phone;
-
-    @NotNull
-    public String shopId;
 
     @Length(min = 6, max = 18)
     public String password;
@@ -71,8 +66,6 @@ public class C1021 extends BaseService {
             session.commit();
             createError(this, "password is wrong, it is the " + user.getFail() + " time you input wrong password");
         }
-
-
     }
 
     public static Date getInitData() {

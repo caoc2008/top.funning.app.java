@@ -15,11 +15,15 @@ public interface GoodTypeDAL {
     public List<GoodType> getList(@Param("shopId") String shopId);
 
     @Select("select id,name from `GoodType` where state = 1 and shopId = #{shopId} order by sort")
-    public List<Map> getUsefulList(@Param("shopId") String shopId);
+    public List<GoodType> getUsefulList(@Param("shopId") String shopId);
 
     @Update("update `GoodType` set name=#{name},state=#{state},sort=#{sort} where id=#{id} and shopId = #{shopId}")
     public int update(GoodType type);
 
     @Delete("delete from `GoodType` where id=#{id} and shopId = #{shopId}")
     public int delete(@Param("id") String id, @Param("shopId") String shopId);
+
+    @Select("select * from `GoodType` where shopId = #{shopId} and id=#{id}")
+    GoodType get(@Param("id") int id, @Param("shopId") String shopId);
+
 }

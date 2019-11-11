@@ -2,10 +2,9 @@ package top.funning.app.service.good.delete;
 
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
-import top.funning.app.database.cache.Good;
+import top.funning.app.database.cache.GoodCache;
 import top.funning.app.database.dal.GoodDAL;
 import top.funning.app.service.FnService;
-import top.knxy.library.BaseService;
 import top.knxy.library.ServiceException;
 
 public class M1012 extends FnService {
@@ -26,7 +25,7 @@ public class M1012 extends FnService {
         }
 
         //删除缓存
-        Good.clear(shopId);
+        GoodCache.clear(shopId);
 
         createSuccess(this);
     }

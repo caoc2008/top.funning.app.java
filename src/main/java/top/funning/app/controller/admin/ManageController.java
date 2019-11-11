@@ -1,12 +1,11 @@
 package top.funning.app.controller.admin;
 
-import org.apache.catalina.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import top.funning.app.database.Redis;
-import top.funning.app.service.login.pwd.modify.M1019;
+import top.funning.app.service.identify.password.manager.modify.M1019;
 import top.funning.app.service.shop.get.M1030;
 import top.funning.app.service.shop.modify.p12.M1031;
 import top.funning.app.utils.ControllerUtils;

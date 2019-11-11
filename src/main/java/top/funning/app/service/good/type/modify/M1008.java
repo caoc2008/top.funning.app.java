@@ -3,6 +3,7 @@ package top.funning.app.service.good.type.modify;
 import net.sf.oval.constraint.Digits;
 import net.sf.oval.constraint.NotBlank;
 import org.apache.ibatis.session.SqlSession;
+import top.funning.app.database.cache.GoodCache;
 import top.funning.app.database.dal.GoodTypeDAL;
 import top.funning.app.database.table.GoodType;
 import top.funning.app.service.FnService;
@@ -24,6 +25,7 @@ public class M1008 extends FnService {
     protected void run() throws Exception {
         SqlSession session = getSqlSession();
         GoodTypeDAL opreation = session.getMapper(GoodTypeDAL.class);
+
         GoodType type = new GoodType();
         type.setId(Integer.valueOf(id));
         type.setName(name);
@@ -33,6 +35,7 @@ public class M1008 extends FnService {
         opreation.update(type);
         session.commit();
 
+        GoodCache.refresh(shopId);
 
         createSuccess(this);
     }

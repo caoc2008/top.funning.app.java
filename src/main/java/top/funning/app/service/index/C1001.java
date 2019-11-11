@@ -1,10 +1,12 @@
 package top.funning.app.service.index;
 
 import org.apache.ibatis.session.SqlSession;
+import top.funning.app.config.C;
 import top.funning.app.database.dal.GoodDAL;
 import top.funning.app.database.dal.GoodTypeDAL;
 import top.funning.app.database.Redis;
 import top.funning.app.database.table.Good;
+import top.funning.app.database.table.GoodType;
 import top.funning.app.service.FnService;
 import top.funning.app.service.good.get.M1013;
 import top.knxy.library.config.V;
@@ -21,7 +23,7 @@ public class C1001 extends FnService {
     public void run() throws Exception {
         SqlSession session = getSqlSession();
         GoodTypeDAL gtDal = session.getMapper(GoodTypeDAL.class);
-        List<M1013.GoodType> goodTypeList = ServiceUtils.mapToBean(gtDal.getUsefulList(shopId), M1013.GoodType.class);
+        List<GoodType> goodTypeList = gtDal.getUsefulList(shopId);
         GoodDAL gDal = session.getMapper(GoodDAL.class);
         List<Good> goodList = gDal.getUsefulList(shopId);
 
@@ -30,7 +32,7 @@ public class C1001 extends FnService {
         data.typeList = new ArrayList<>();
         Map<String, Data.Type> typeMap = new HashMap<>();
 
-        for (M1013.GoodType goodType : goodTypeList) {
+        for (GoodType goodType : goodTypeList) {
             Data.Type type = new Data.Type(goodType);
             typeMap.put(String.valueOf(goodType.getId()), type);
             data.typeList.add(type);
@@ -43,11 +45,8 @@ public class C1001 extends FnService {
         }
 
         data.postImageUrl = Redis.get(shopId + "_" + V.postImageUrl);
-
         this.data = data;
-
         createSuccess(this);
-
     }
 
     public static class Data {
@@ -61,7 +60,7 @@ public class C1001 extends FnService {
             public String name;
             public List<Good> goodList;
 
-            public Type(M1013.GoodType goodType) {
+            public Type(GoodType goodType) {
                 this.id = String.valueOf(goodType.getId());
                 this.name = goodType.getName();
                 this.goodList = new ArrayList<>();
@@ -78,7 +77,7 @@ public class C1001 extends FnService {
                     this.id = String.valueOf(good.getId());
                     this.name = good.getName();
                     this.description = good.getDescription();
-                    this.imageUrl = good.getImageUrl();
+                    this.imageUrl = C.App.imageHost + good.getImageUrl();
                     this.price = good.getPrice();
                 }
             }

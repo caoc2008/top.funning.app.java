@@ -3,8 +3,7 @@ package top.funning.app.utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.springframework.web.servlet.ModelAndView;
-import top.funning.app.bean.RequestBody;
-import top.funning.app.controller.ApiController;
+import top.funning.app.bean.PostBody;
 import top.funning.app.service.FnService;
 import top.knxy.library.BaseService;
 import top.knxy.library.config.Code;
@@ -50,7 +49,7 @@ public class ControllerUtils {
         return modelAndView;
     }
 
-    public static <T extends FnService> Map doService(Gson gson, Class<T> tClass, RequestBody body) {
+    public static <T extends FnService> Map doService(Gson gson, Class<T> tClass, PostBody body) {
         if (body.data == null) {
             body.data = new JsonObject();
         }
