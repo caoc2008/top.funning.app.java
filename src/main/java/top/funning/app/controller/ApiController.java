@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import top.funning.app.bean.PostBody;
 import top.funning.app.database.table.User;
+import top.funning.app.service.address.add.C1024;
+import top.funning.app.service.address.delete.C1025;
+import top.funning.app.service.address.get.C1026;
+import top.funning.app.service.address.getPcd.C1029;
+import top.funning.app.service.address.list.C1027;
+import top.funning.app.service.address.modify.C1028;
 import top.funning.app.service.address.poster.computer.C1013;
 import top.funning.app.service.identify.password.android.C1023;
 import top.funning.app.service.index.C1001;
@@ -54,7 +60,9 @@ public class ApiController {
     public static final String TAG = "ApiController";
 
     public static Class[] AndroidServiceList = {
-            C1001.class, C1005.class, C1009.class, C1012.class, C1020.class, C1021.class, C1022.class, C1023.class
+            C1001.class, C1005.class, C1009.class, C1012.class, C1020.class, C1021.class,
+            C1022.class, C1023.class, C1024.class, C1025.class, C1026.class, C1027.class,
+            C1028.class, C1029.class
     };
 
     @PostMapping("/android_api")

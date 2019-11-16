@@ -22,5 +22,6 @@
         <mapper class="top.funning.app.database.dal.GoodDAL"/>
         <mapper class="top.funning.app.database.dal.OrderDAL"/>
         <mapper class="top.funning.app.database.dal.GoodTypeDAL"/>
+        <mapper class="top.funning.app.database.dal.AddressDAL"/>
     </mappers>
 </configuration>

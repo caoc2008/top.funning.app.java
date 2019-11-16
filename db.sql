@@ -95,6 +95,21 @@ create table `Shop`(
     p12FileName char(32)
 );
 
+ 
+create table `Address`
+(
+    id  int auto_increment primary key,
+    name varchar(32),
+    phone varchar(32),
+    province varchar(32),
+    city varchar(32),
+    area varchar(32),
+    detail varchar(128),
+    poster varchar(8),
+    userId varchar(32),
+    shopId varchar(32),
+)
+
 create table `Admin`
 (
   id           int auto_increment
