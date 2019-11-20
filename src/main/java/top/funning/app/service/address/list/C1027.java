@@ -19,7 +19,7 @@ public class C1027 extends FnService {
     protected void run() throws Exception {
         SqlSession sqlSession = getSqlSession();
         AddressDAL dal = sqlSession.getMapper(AddressDAL.class);
-        List<Address> list = dal.getList(userId, shopId);
+        List<Address> list = dal.getList(userId, header.shopId);
 
         Data data = new Data();
         data.dataList = Translator.INSTANCES.toAddressList(list);

@@ -63,7 +63,7 @@ public class M1011 extends FnService {
 
         Good good = new Good();
         good.setId(Integer.valueOf(id));
-        good.setShopId(Integer.valueOf(shopId));
+        good.setShopId(Integer.valueOf(header.shopId));
         good.setName(name);
         good.setDescription(description);
         good.setPrice(price);
@@ -91,7 +91,7 @@ public class M1011 extends FnService {
 
         if (good.getType() > 1) {
             GoodTypeDAL gtDal = session.getMapper(GoodTypeDAL.class);
-            GoodType type = gtDal.get(good.getType(),shopId);
+            GoodType type = gtDal.get(good.getType(),header.shopId);
             if(type == null){
                 createError(this);
                 return;
@@ -109,7 +109,7 @@ public class M1011 extends FnService {
         }
 
         //删除缓存
-        GoodCache.clear(shopId);
+        GoodCache.clear(header.shopId);
         createSuccess(this);
     }
 

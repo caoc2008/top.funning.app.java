@@ -67,7 +67,7 @@ public class C1022 extends FnService {
 
         SqlSession session = getSqlSession();
         ShopDAL shopDAL = session.getMapper(ShopDAL.class);
-        Shop shop = shopDAL.get(String.valueOf(shopId));
+        Shop shop = shopDAL.get(String.valueOf(header.shopId));
         if (shop == null) {
             createError(this, "不存在该商铺");
             return;
@@ -77,7 +77,7 @@ public class C1022 extends FnService {
         password = PwdUtils.sha1(password + salt);
 
         UserDAL userDAL = session.getMapper(UserDAL.class);
-        if (userDAL.getUserByPhone(phone, shopId) != null) {
+        if (userDAL.getUserByPhone(phone, header.shopId) != null) {
             Redis.del(smsCodeId);
             createError(this, "手机号已注册");
             return;
@@ -88,7 +88,7 @@ public class C1022 extends FnService {
         user.setPhone(phone);
         user.setPassword(password);
         user.setSalt(salt);
-        user.setShopId(Integer.valueOf(shopId));
+        user.setShopId(Integer.valueOf(header.shopId));
 
         userDAL.insert(user);
         session.commit();

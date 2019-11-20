@@ -10,7 +10,7 @@ public class M1022 extends FnService {
     @Override
     public void run() throws Exception {
 
-        Redis.del(shopId + "_" + V.postImageUrl);
+        Redis.del(header.shopId + "_" + V.postImageUrl);
         createSuccess(this);
     }
 

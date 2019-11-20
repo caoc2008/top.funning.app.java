@@ -22,7 +22,7 @@ public class M1002 extends FnService {
 
         SqlSession session = getSqlSession();
         OrderDAL operation = session.getMapper(OrderDAL.class);
-        Order order = operation.getOrder(id,shopId);
+        Order order = operation.getOrder(id,header.shopId);
 
         this.data = OrderCollection.createOrder(order,new Gson());
 

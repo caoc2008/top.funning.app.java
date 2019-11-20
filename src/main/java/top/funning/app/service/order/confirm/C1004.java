@@ -24,7 +24,7 @@ public class C1004 extends FnService {
         Order order = new Order();
         order.setId(id);
         order.setUserId(userId);
-        order.setShopId(Integer.valueOf(shopId));
+        order.setShopId(Integer.valueOf(header.shopId));
         order = mapper.getOrderByUser(order);
         if (order == null) {
             throw new ServiceException("没有订单 id = " + id);

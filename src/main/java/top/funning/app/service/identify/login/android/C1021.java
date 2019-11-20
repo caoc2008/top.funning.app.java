@@ -24,7 +24,7 @@ public class C1021 extends FnService {
 
         SqlSession session = getSqlSession();
         UserDAL mapper = session.getMapper(UserDAL.class);
-        User user = mapper.getUserByPhone(phone, shopId);
+        User user = mapper.getUserByPhone(phone, header.shopId);
 
         if (user == null) {
             createError(this, "user is not exist");
@@ -53,7 +53,7 @@ public class C1021 extends FnService {
                 mapper.updateFail(user);
                 session.commit();
             }
-            this.data = user;
+            this.data = Translator.INSTANCES.toUser(user);
             createSuccess(this);
         } else {
             int fail = user.getFail();
@@ -66,6 +66,17 @@ public class C1021 extends FnService {
             session.commit();
             createError(this, "password is wrong, it is the " + user.getFail() + " time you input wrong password");
         }
+    }
+
+    public static class Data {
+        public String id;
+        public String openId;
+        public String nickName;
+        public String gender;
+        public String avatarUrl;
+        public String province;
+        public String city;
+        public String country;
     }
 
     public static Date getInitData() {

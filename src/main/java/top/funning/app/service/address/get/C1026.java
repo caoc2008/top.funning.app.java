@@ -21,7 +21,7 @@ public class C1026 extends FnService {
     protected void run() throws Exception {
         SqlSession sqlSession = getSqlSession();
         AddressDAL dal = sqlSession.getMapper(AddressDAL.class);
-        Address address = dal.get(id, userId, shopId);
+        Address address = dal.get(id, userId, header.shopId);
 
         this.data = Translator.INSTANCES.toAddress(address);
 

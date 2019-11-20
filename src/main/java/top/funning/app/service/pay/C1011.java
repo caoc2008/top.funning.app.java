@@ -39,7 +39,7 @@ public class C1011 extends FnService {
 
         SqlSession session = getSqlSession();
         ShopDAL shopDAL = session.getMapper(ShopDAL.class);
-        Shop shop = shopDAL.get(shopId);
+        Shop shop = shopDAL.get(header.shopId);
         if (TextUtils.isEmpty(shop.getWcpayApiKey())) {
             createResult(this, -6001, "小程序信息未填写");
             return;
@@ -63,7 +63,7 @@ public class C1011 extends FnService {
         if ("C1010".equals(info.attach)) {
             String orderId = info.outTradeNo;
             OrderDAL dal = session.getMapper(OrderDAL.class);
-            Order order = dal.getOrder(orderId, shopId);
+            Order order = dal.getOrder(orderId, header.shopId);
 
             BigDecimal wcMoney = new BigDecimal(info.cashFee);
             BigDecimal ownMoney = new BigDecimal(order.getAmount()).multiply(new BigDecimal(100));
@@ -74,7 +74,7 @@ public class C1011 extends FnService {
 
             order.setPayDT(new Date());
             order.setState(2);
-            order.setShopId(Integer.valueOf(shopId));
+            order.setShopId(Integer.valueOf(header.shopId));
             int result = dal.update(order);
             session.commit();
             if (result < 1) {

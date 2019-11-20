@@ -28,7 +28,7 @@ public class M1018 extends FnService {
 
         SqlSession session = getSqlSession();
         OrderDAL operation = session.getMapper(OrderDAL.class);
-        Order order = operation.getOrder(id, shopId);
+        Order order = operation.getOrder(id, header.shopId);
 
         if (order.getState() != 4) {
 
@@ -36,7 +36,7 @@ public class M1018 extends FnService {
         }
 
         ShopDAL shopDAL = session.getMapper(ShopDAL.class);
-        Shop shop = shopDAL.get(shopId);
+        Shop shop = shopDAL.get(header.shopId);
         if (TextUtils.isEmpty(shop.getWechatAppid()) || TextUtils.isEmpty(shop.getWcpayMchId()) || TextUtils.isEmpty(shop.getWcpayApiKey())) {
             createResult(this, -6001, "小程序信息未填写");
             return;

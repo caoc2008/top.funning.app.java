@@ -17,7 +17,7 @@ public class M1016 extends FnService {
         SqlSession session = getSqlSession();
         GoodTypeDAL gtDal = session.getMapper(GoodTypeDAL.class);
 
-        List<GoodType> list = gtDal.getUsefulList(shopId);
+        List<GoodType> list = gtDal.getUsefulList(header.shopId);
 
         if (list == null || list.isEmpty()) {
             createError(this, "商品分组为空，请先添加商品分组");

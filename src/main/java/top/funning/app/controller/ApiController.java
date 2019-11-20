@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import top.funning.app.bean.PostBody;
 import top.funning.app.database.table.User;
+import top.funning.app.service.FnService;
 import top.funning.app.service.address.add.C1024;
 import top.funning.app.service.address.delete.C1025;
 import top.funning.app.service.address.get.C1026;
@@ -72,6 +73,11 @@ public class ApiController {
         Gson gson = new Gson();
         PostBody body = gson.fromJson(bodyStr, PostBody.class);
 
+        if (TextUtils.isNumeric(body.shopId)) {
+            LogUtils.e(TAG, "shop id is illegal");
+            return Response.createError();
+        }
+
         Object userId = request.getSession().getAttribute(V.userId);
 
         if ("C1005".equals(body.cmd)) {
@@ -82,23 +88,27 @@ public class ApiController {
 
         if (C1021.class.getSimpleName().equals(body.cmd)) {
             C1021 service = gson.fromJson(body.data, C1021.class);
-            service.shopId = body.shopId;
+            service.header = new FnService.Header();
+            service.header.shopId = body.shopId;
+
             service.start();
             if (service.code == Code.Service.SUCCESS) {
                 HttpSession session = request.getSession();
-                User u = (User) service.data;
-                session.setAttribute(V.userId, u.getId());
-                return Response.createSuccess();
+                C1021.Data u = (C1021.Data) service.data;
+                session.setAttribute(V.userId, u.id);
+                return Response.createSuccess(u);
             } else {
                 return Response.create(Code.Client.ERROR, service.msg);
             }
         }
 
+
         for (Class cls : AndroidServiceList) {
             String claName = cls.getSimpleName();
             String cmd = body.cmd;
+
             if (claName.equals(cmd)) {
-                return ControllerUtils.doService(gson, cls, body);
+                return ControllerUtils.doService(gson, cls, body.data, body.shopId);
             }
         }
 
@@ -118,6 +128,11 @@ public class ApiController {
         Gson gson = new Gson();
         PostBody body = gson.fromJson(bodyStr, PostBody.class);
 
+        if (TextUtils.isNumeric(body.shopId)) {
+            LogUtils.e(TAG, "shop id is illegal");
+            return Response.createError();
+        }
+
         WcSessionInfo sessionInfo = (WcSessionInfo) request.getSession().getAttribute(V.userInfo);
 
         if ("C1001".equals(body.cmd) || "C1002".equals(body.cmd)
@@ -136,15 +151,17 @@ public class ApiController {
         }
 
         if (C1003.class.getSimpleName().equals(body.cmd)) {
-            C1003 c1003 = gson.fromJson(body.data, C1003.class);
-            c1003.start();
-            if (c1003.code == Code.Service.SUCCESS) {
+            C1003 service = gson.fromJson(body.data, C1003.class);
+            service.header = new FnService.Header();
+            service.header.shopId = body.shopId;
+            service.start();
+            if (service.code == Code.Service.SUCCESS) {
                 HttpSession session = request.getSession();
-                C1003.Data d = (C1003.Data) c1003.data;
+                C1003.Data d = (C1003.Data) service.data;
                 session.setAttribute(V.userInfo, new WcSessionInfo(d.openid, d.sessionKey, d.userId));
                 return Response.createSuccess();
             } else {
-                return Response.create(Code.Client.ERROR, c1003.msg);
+                return Response.create(Code.Client.ERROR, service.msg);
             }
         }
 
@@ -152,7 +169,7 @@ public class ApiController {
             String claName = cls.getSimpleName();
             String cmd = body.cmd;
             if (claName.equals(cmd)) {
-                return ControllerUtils.doService(gson, cls, body.data);
+                return ControllerUtils.doService(gson, cls, body.data, body.shopId);
             }
         }
 
@@ -169,8 +186,9 @@ public class ApiController {
     @PostMapping("/admin_api")
     public Object admin(HttpServletRequest request, @RequestBody String bodyStr) {
 
-        Object objAdminId = request.getSession().getAttribute(V.adminId);
-        Object objShopId = request.getSession().getAttribute(V.shopId);
+        HttpSession session = request.getSession();
+        Object objAdminId = session.getAttribute(V.adminId);
+        Object objShopId = session.getAttribute(V.shopId);
         if (objAdminId == null || objShopId == null) {
             return Response.create(Code.Client.NEED_LOGIN);
         }
@@ -183,8 +201,6 @@ public class ApiController {
         Gson gson = new Gson();
         PostBody body = gson.fromJson(bodyStr, PostBody.class);
 
-        body.data.addProperty(V.shopId, shopId);
-
         if ("M1020".equals(body.cmd)) {
             //exit
             request.getSession().removeAttribute(V.adminId);
@@ -195,7 +211,7 @@ public class ApiController {
             String claName = cls.getSimpleName();
             String cmd = body.cmd;
             if (claName.equals(cmd)) {
-                return ControllerUtils.doService(gson, cls, body.data);
+                return ControllerUtils.doService(gson, cls, body.data, shopId);
             }
         }
 

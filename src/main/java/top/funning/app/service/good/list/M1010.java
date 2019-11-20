@@ -20,7 +20,7 @@ public class M1010 extends FnService {
         GoodDAL goodDAL = session.getMapper(GoodDAL.class);
         Page pModel = new Page(page);
 
-        this.data = new Data(goodDAL.getList(pModel.getIndex(), pModel.getSize(),shopId));
+        this.data = new Data(goodDAL.getList(pModel.getIndex(), pModel.getSize(),header.shopId));
 
         createSuccess(this);
     }

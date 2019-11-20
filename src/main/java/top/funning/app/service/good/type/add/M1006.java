@@ -22,7 +22,7 @@ public class M1006 extends FnService {
         GoodTypeDAL operation = session.getMapper(GoodTypeDAL.class);
         GoodType goodType = new GoodType();
         goodType.setSort(Integer.valueOf(sort));
-        goodType.setShopId(Integer.valueOf(shopId));
+        goodType.setShopId(Integer.valueOf(header.shopId));
         goodType.setName(name);
         int row = operation.insert(goodType);
         session.commit();

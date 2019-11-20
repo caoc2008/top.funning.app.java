@@ -28,7 +28,7 @@ public class M1029 extends FnService {
     protected void run() throws Exception {
         SqlSession sqlSession = getSqlSession();
         ShopDAL shopDAL = sqlSession.getMapper(ShopDAL.class);
-        Shop shop = shopDAL.get(shopId);
+        Shop shop = shopDAL.get(header.shopId);
         shop.setWechatAppid(wechatAppid);
         shop.setWechatSecret(wechatSecret);
         shop.setWcpayMchId(wcpayMchId);

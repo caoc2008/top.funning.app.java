@@ -32,12 +32,12 @@ public class C1006 extends FnService {
         Order order = new Order();
         order.setUserId(userId);
         order.setId(id);
-        order.setShopId(Integer.valueOf(shopId));
+        order.setShopId(Integer.valueOf(header.shopId));
 
         order = dal.getOrderByUser(order);
 
         ShopDAL shopDAL = session.getMapper(ShopDAL.class);
-        Shop shop = shopDAL.get(shopId);
+        Shop shop = shopDAL.get(header.shopId);
 
         if (TextUtils.isEmpty(shop.getWechatAppid()) || TextUtils.isEmpty(shop.getWcpayMchId()) || TextUtils.isEmpty(shop.getWcpayApiKey())) {
             createResult(this, -6001, "小程序信息未填写");

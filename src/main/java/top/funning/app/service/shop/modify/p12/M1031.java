@@ -34,7 +34,7 @@ public class M1031 extends FnService {
 
             SqlSession sqlSession = getSqlSession();
             ShopDAL dal = sqlSession.getMapper(ShopDAL.class);
-            Shop shop = dal.get(shopId);
+            Shop shop = dal.get(header.shopId);
             shop.setP12FileName(fileName);
             int row = dal.update(shop);
             sqlSession.commit();

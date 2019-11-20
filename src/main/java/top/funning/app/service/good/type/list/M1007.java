@@ -13,7 +13,7 @@ public class M1007 extends FnService {
     @Override
     protected void run() throws Exception {
         Data data = new Data();
-        data.typeList = getSqlSession().getMapper(GoodTypeDAL.class).getList(shopId);
+        data.typeList = getSqlSession().getMapper(GoodTypeDAL.class).getList(header.shopId);
         this.data = data;
         createSuccess(this);
     }

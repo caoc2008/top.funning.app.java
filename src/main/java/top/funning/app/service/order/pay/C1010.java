@@ -88,7 +88,7 @@ public class C1010 extends FnService {
         Order order = new Order();
         order.setId(id);
         order.setUserId(userId);
-        order.setShopId(Integer.valueOf(shopId));
+        order.setShopId(Integer.valueOf(header.shopId));
         order = mapper.getOrderByUser(order);
         if (order == null) {
             throw new ServiceException("没有订单 id = " + id);
@@ -135,7 +135,7 @@ public class C1010 extends FnService {
         order.setUserName(address.userName);
         order.setNationalCode(address.nationalCode);
         order.setPostalCode(address.postalCode);
-        order.setShopId(Integer.valueOf(shopId));
+        order.setShopId(Integer.valueOf(header.shopId));
 
         int result = mapper.update(order);
         session.commit();
@@ -146,7 +146,7 @@ public class C1010 extends FnService {
 
         //支付
         UserDAL dal = session.getMapper(UserDAL.class);
-        User user = dal.getUser(userId,shopId);
+        User user = dal.getUser(userId,header.shopId);
         if (user == null) {
             throw new ServiceException("没有用户 user id = " + userId);
         }
@@ -154,7 +154,7 @@ public class C1010 extends FnService {
         String money = new BigDecimal(order.getAmount()).multiply(new BigDecimal(100)).setScale(0, BigDecimal.ROUND_UP).toString();
 
         ShopDAL shopDAL = session.getMapper(ShopDAL.class);
-        Shop shop = shopDAL.get(shopId);
+        Shop shop = shopDAL.get(header.shopId);
 
         if (TextUtils.isEmpty(shop.getWechatAppid()) || TextUtils.isEmpty(shop.getWcpayMchId()) || TextUtils.isEmpty(shop.getWcpayApiKey())) {
             createResult(this, -6001, "小程序信息未填写");

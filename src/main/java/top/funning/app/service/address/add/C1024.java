@@ -26,8 +26,6 @@ public class C1024 extends FnService {
     public String poster;
     @Length(min = 32, max = 32)
     public String userId;
-    @Length(min = 32, max = 32)
-    public String shopId;
 
     @Override
     protected void run() throws Exception {
@@ -43,7 +41,7 @@ public class C1024 extends FnService {
         address.setDetail(detail);
         address.setPoster(poster);
         address.setUserId(userId);
-        address.setShopId(shopId);
+        address.setShopId(header.shopId);
         dal.add(address);
         session.commit();
 

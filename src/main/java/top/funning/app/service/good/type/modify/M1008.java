@@ -30,12 +30,12 @@ public class M1008 extends FnService {
         type.setId(Integer.valueOf(id));
         type.setName(name);
         type.setState(Integer.valueOf(state));
-        type.setShopId(Integer.valueOf(shopId));
+        type.setShopId(Integer.valueOf(header.shopId));
         type.setSort(Integer.valueOf(sort));
         opreation.update(type);
         session.commit();
 
-        GoodCache.refresh(shopId);
+        GoodCache.refresh(header.shopId);
 
         createSuccess(this);
     }

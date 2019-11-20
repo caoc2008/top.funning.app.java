@@ -18,7 +18,7 @@ public class C1009 extends FnService {
     @Override
     protected void run() throws Exception {
         SqlSession session = getSqlSession();
-        Good good = ServiceUtils.mapToBean(session.getMapper(GoodDAL.class).getGoodForUser(id, shopId), Good.class);
+        Good good = ServiceUtils.mapToBean(session.getMapper(GoodDAL.class).getGoodForUser(id, header.shopId), Good.class);
 
         if (good == null) {
             createError(this);

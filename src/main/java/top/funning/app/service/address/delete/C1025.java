@@ -18,7 +18,7 @@ public class C1025 extends FnService {
     protected void run() throws Exception {
         SqlSession session = getSqlSession();
         AddressDAL dal = getSqlSession().getMapper(AddressDAL.class);
-        dal.delete(id, userId, shopId);
+        dal.delete(id, userId, header.shopId);
         session.commit();
         createSuccess(this);
     }

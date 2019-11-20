@@ -23,9 +23,9 @@ public class C1001 extends FnService {
     public void run() throws Exception {
         SqlSession session = getSqlSession();
         GoodTypeDAL gtDal = session.getMapper(GoodTypeDAL.class);
-        List<GoodType> goodTypeList = gtDal.getUsefulList(shopId);
+        List<GoodType> goodTypeList = gtDal.getUsefulList(header.shopId);
         GoodDAL gDal = session.getMapper(GoodDAL.class);
-        List<Good> goodList = gDal.getUsefulList(shopId);
+        List<Good> goodList = gDal.getUsefulList(header.shopId);
 
 
         Data data = new Data();
@@ -44,7 +44,7 @@ public class C1001 extends FnService {
             type.goodList.add(dtg);
         }
 
-        data.postImageUrl = Redis.get(shopId + "_" + V.postImageUrl);
+        data.postImageUrl = Redis.get(header.shopId + "_" + V.postImageUrl);
         this.data = data;
         createSuccess(this);
     }

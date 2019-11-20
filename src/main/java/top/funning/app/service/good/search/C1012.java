@@ -20,7 +20,7 @@ public class C1012 extends FnService {
             return;
         }
 
-        data.dataList = GoodCache.search(word, shopId);
+        data.dataList = GoodCache.search(word, header.shopId);
         for (GoodCache.Item item : data.dataList) {
             item.setImageUrl(C.App.imageHost + item.getImageUrl());
         }

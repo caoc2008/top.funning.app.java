@@ -15,7 +15,7 @@ public class M1023 extends FnService {
     protected void run() throws Exception {
         SqlSession session = getSqlSession();
         UserDAL userDal = session.getMapper(UserDAL.class);
-        Data data = new Data(userDal.getList(shopId));
+        Data data = new Data(userDal.getList(header.shopId));
         this.data = data;
 
         createSuccess(this);

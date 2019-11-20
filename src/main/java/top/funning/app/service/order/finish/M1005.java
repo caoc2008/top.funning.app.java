@@ -21,7 +21,7 @@ public class M1005 extends FnService {
 
         SqlSession session = getSqlSession();
         OrderDAL operation = session.getMapper(OrderDAL.class);
-        Order order = operation.getState(id,shopId);
+        Order order = operation.getState(id,header.shopId);
 
         if (order.getState() != 2) {
             throw new Exception("修改不合法");

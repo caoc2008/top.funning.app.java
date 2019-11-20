@@ -22,14 +22,14 @@ public class M1013 extends FnService {
     protected void run() throws Exception {
         SqlSession session = getSqlSession();
         GoodDAL gDal = session.getMapper(GoodDAL.class);
-        Good good = gDal.getGoodForAdmin(id, shopId);
+        Good good = gDal.getGoodForAdmin(id, header.shopId);
         if (good == null) {
             createError(this, "没有这个商品");
             return;
         }
 
         GoodTypeDAL gtDal = session.getMapper(GoodTypeDAL.class);
-        List<GoodType> gtList = gtDal.getUsefulList(shopId);
+        List<GoodType> gtList = gtDal.getUsefulList(header.shopId);
 
         Data data = new Data(good, gtList);
         this.data = data;

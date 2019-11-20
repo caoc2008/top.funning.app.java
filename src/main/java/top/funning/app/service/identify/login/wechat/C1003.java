@@ -25,7 +25,7 @@ public class C1003 extends FnService {
 
         SqlSession session = getSqlSession();
         ShopDAL shopDAL = session.getMapper(ShopDAL.class);
-        Shop shop = shopDAL.get(shopId);
+        Shop shop = shopDAL.get(header.shopId);
         if (TextUtils.isEmpty(shop.getWechatAppid()) || TextUtils.isEmpty(shop.getWechatSecret())) {
             createResult(this, -6001,"小程序信息未填写");
             return;
@@ -47,12 +47,12 @@ public class C1003 extends FnService {
 
         UserDAL mapper = session.getMapper(UserDAL.class);
         //1. getGood user info form db
-        User user = mapper.getUserByOpenId(wxrp.openid, shopId);
+        User user = mapper.getUserByOpenId(wxrp.openid, header.shopId);
         if (user == null) {
             //2. 将记录插入到数据库中
             user = new User();
             user.setOpenId(wxrp.openid);
-            user.setShopId(Integer.valueOf(shopId));
+            user.setShopId(Integer.valueOf(header.shopId));
             int result = mapper.insert(user);
             session.commit();
             if (result < 1) {

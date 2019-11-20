@@ -17,7 +17,7 @@ public class M1021 extends FnService {
     public void run() throws Exception {
 
         String value = C.App.imageHost + fileName;
-        Redis.set(shopId + "_" + V.postImageUrl, value);
+        Redis.set(header.shopId + "_" + V.postImageUrl, value);
         createSuccess(this);
     }
 }

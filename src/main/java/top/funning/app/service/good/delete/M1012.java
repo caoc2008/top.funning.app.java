@@ -17,7 +17,7 @@ public class M1012 extends FnService {
         int result;
         SqlSession session = getSqlSession();
         GoodDAL gDal = session.getMapper(GoodDAL.class);
-        result = gDal.delete(id,shopId);
+        result = gDal.delete(id,header.shopId);
         session.commit();
         if (result < 1) {
 
@@ -25,7 +25,7 @@ public class M1012 extends FnService {
         }
 
         //删除缓存
-        GoodCache.clear(shopId);
+        GoodCache.clear(header.shopId);
 
         createSuccess(this);
     }

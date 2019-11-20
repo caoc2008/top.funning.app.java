@@ -71,7 +71,7 @@ public class M1014 extends FnService {
         good.setState(Integer.valueOf(state));
         good.setType(Integer.valueOf(type));
         good.setImageUrl(imageUrl);
-        good.setShopId(Integer.valueOf(shopId));
+        good.setShopId(Integer.valueOf(header.shopId));
 
         M1011.Content content = new M1011.Content();
 
@@ -99,7 +99,7 @@ public class M1014 extends FnService {
         }
 
         //删除缓存
-        GoodCache.clear(shopId);
+        GoodCache.clear(header.shopId);
 
         createSuccess(this);
 

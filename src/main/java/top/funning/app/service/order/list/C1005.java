@@ -17,7 +17,7 @@ public class C1005 extends FnService {
 
         SqlSession session = getSqlSession();
         OrderDAL mapper = session.getMapper(OrderDAL.class);
-        List<Order> orders = mapper.getListByUserId(userId,shopId);
+        List<Order> orders = mapper.getListByUserId(userId,header.shopId);
         this.data = new OrderCollection(orders);
 
         createSuccess(this);

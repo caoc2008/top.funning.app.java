@@ -13,7 +13,7 @@ public class M1017 extends FnService {
         this.data = data;
 
         OrderDAL oDal = session.getMapper(OrderDAL.class);
-        data.normalUnDoCount = String.valueOf(oDal.getUnDoNumber(shopId));
+        data.normalUnDoCount = String.valueOf(oDal.getUnDoNumber(header.shopId));
 
         createSuccess(this);
     }

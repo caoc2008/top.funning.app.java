@@ -22,7 +22,7 @@ public class M1001 extends FnService {
         Page pModel = new Page(page);
         SqlSession session = getSqlSession();
         OrderDAL orderDal = session.getMapper(OrderDAL.class);
-        this.data = new Data(orderDal.getList(pModel.getIndex(), pModel.getSize(),shopId));
+        this.data = new Data(orderDal.getList(pModel.getIndex(), pModel.getSize(),header.shopId));
 
         createSuccess(this);
     }

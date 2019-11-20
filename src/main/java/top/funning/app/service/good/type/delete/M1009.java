@@ -16,12 +16,12 @@ public class M1009 extends FnService {
 
         SqlSession session = getSqlSession();
         GoodTypeDAL dal = session.getMapper(GoodTypeDAL.class);
-        int result = dal.delete(id, shopId);
+        int result = dal.delete(id, header.shopId);
 
         GoodDAL goodDAL = session.getMapper(GoodDAL.class);
-        goodDAL.updateState(id, shopId);
+        goodDAL.updateState(id, header.shopId);
 
-        GoodCache.refresh(shopId);
+        GoodCache.refresh(header.shopId);
         session.commit();
 
         if (result < 1) {

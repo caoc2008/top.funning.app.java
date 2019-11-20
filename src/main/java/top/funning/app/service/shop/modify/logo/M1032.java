@@ -15,7 +15,7 @@ public class M1032 extends FnService {
     protected void run() throws Exception {
         SqlSession sqlSession = getSqlSession();
         ShopDAL dal = sqlSession.getMapper(ShopDAL.class);
-        Shop shop = dal.get(shopId);
+        Shop shop = dal.get(header.shopId);
         shop.setLogoUrl(fileName);
         int row = dal.update(shop);
         sqlSession.commit();

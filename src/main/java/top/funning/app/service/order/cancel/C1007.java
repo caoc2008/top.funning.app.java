@@ -21,7 +21,7 @@ public class C1007 extends FnService {
         order.setState(5);
         order.setUserId(userId);
         order.setId(id);
-        order.setShopId(Integer.valueOf(shopId));
+        order.setShopId(Integer.valueOf(header.shopId));
 
         SqlSession session = getSqlSession();
         int result = session.getMapper(OrderDAL.class).changeStateByUser(order);

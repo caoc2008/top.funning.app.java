@@ -19,7 +19,7 @@ public class M1003 extends FnService {
     public void run() throws Exception {
         Page pModel = new Page(page);
         SqlSession session = getSqlSession();
-        this.data = new Data(session.getMapper(OrderDAL.class).getUndoList(pModel.getIndex(),pModel.getSize(),shopId));
+        this.data = new Data(session.getMapper(OrderDAL.class).getUndoList(pModel.getIndex(),pModel.getSize(),header.shopId));
 
 
         createSuccess(this);

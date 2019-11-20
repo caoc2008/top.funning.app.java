@@ -12,7 +12,7 @@ public class M1030 extends FnService {
     protected void run() throws Exception {
         SqlSession sqlSession = getSqlSession();
         ShopDAL shopDAL =  sqlSession.getMapper(ShopDAL.class);
-        Shop shop = shopDAL.get(shopId);
+        Shop shop = shopDAL.get(header.shopId);
         shop.setLogoUrl(C.App.imageHost + shop.getLogoUrl());
         this.data = shop;
         createSuccess(this);

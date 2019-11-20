@@ -38,7 +38,7 @@ public class C1002 extends FnService {
 
         BigDecimal price = new BigDecimal(0);
         for (Item item : goodList) {
-            Good good = goodDAL.get(String.valueOf(item.body.getId()),shopId);
+            Good good = goodDAL.get(String.valueOf(item.body.getId()),header.shopId);
             if (good == null) {
                 createError(this, item.body.getName() + " 没货了");
                 return;
@@ -56,7 +56,7 @@ public class C1002 extends FnService {
         order.setCreateDT(new Date());
         order.setUserId(userId);
         order.setState(1);
-        order.setShopId(Integer.valueOf(shopId));
+        order.setShopId(Integer.valueOf(header.shopId));
 
         int result = orderDAL.insert(order);
         session.commit();

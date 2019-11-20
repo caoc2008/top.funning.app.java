@@ -49,20 +49,14 @@ public class ControllerUtils {
         return modelAndView;
     }
 
-    public static <T extends FnService> Map doService(Gson gson, Class<T> tClass, PostBody body) {
-        if (body.data == null) {
-            body.data = new JsonObject();
-        }
-        T t = gson.fromJson(body.data, tClass);
-        t.shopId = body.shopId;
-        return doService(t, tClass);
-    }
 
-    public static <T extends FnService> Map doService(Gson gson, Class<T> tClass, JsonObject data) {
+    public static <T extends FnService> Map doService(Gson gson, Class<T> tClass, JsonObject data, String shopId) {
         if (data == null) {
             data = new JsonObject();
         }
         T t = gson.fromJson(data, tClass);
+        t.header = new FnService.Header();
+        t.header.shopId = shopId;
         return doService(t, tClass);
     }
 
@@ -89,9 +83,10 @@ public class ControllerUtils {
             HttpSession session = request.getSession();
             Object obj = session.getAttribute(V.shopId);
             T t = tClass.newInstance();
-            if (obj != null)
-                t.shopId = obj.toString();
-
+            if (obj != null) {
+                t.header = new FnService.Header();
+                t.header.shopId = obj.toString();
+            }
             return t;
         } catch (Exception e) {
             e.printStackTrace();
