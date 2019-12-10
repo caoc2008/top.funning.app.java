@@ -22,8 +22,9 @@ public class C1002 extends FnService {
     public List<Item> goodList;
 
     public static class Item {
-        public Good body;
+        public String id;
         public String amount;
+        public Good body;
     }
 
     @Override
@@ -38,9 +39,9 @@ public class C1002 extends FnService {
 
         BigDecimal price = new BigDecimal(0);
         for (Item item : goodList) {
-            Good good = goodDAL.get(String.valueOf(item.body.getId()),header.shopId);
+            Good good = goodDAL.get(String.valueOf(item.id), header.shopId);
             if (good == null) {
-                createError(this, item.body.getName() + " 没货了");
+                createError(this, good.getName() + " 没货了");
                 return;
             }
             item.body = good;
@@ -68,7 +69,6 @@ public class C1002 extends FnService {
         data.id = order.getId();
         createSuccess(this);
     }
-
 
     public static class Data {
         public String id;

@@ -24,7 +24,7 @@ public class C {
                 version =  String.valueOf(new Date().getTime());
                 domain = "http://127.0.0.1:" + getValue("server.port");
             } else {
-                version = getVersion() ;
+                version = getVersion();
                 domain = getValue("app.domain");
             }
         }

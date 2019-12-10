@@ -1,6 +1,7 @@
 package top.funning.app.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import top.funning.app.service.address.add.C1024;
 import top.funning.app.service.address.delete.C1025;
 import top.funning.app.service.address.get.C1026;
 import top.funning.app.service.address.getPcd.C1029;
+import top.funning.app.service.address.getTop.C1030;
 import top.funning.app.service.address.list.C1027;
 import top.funning.app.service.address.modify.C1028;
 import top.funning.app.service.address.poster.computer.C1013;
@@ -61,9 +63,9 @@ public class ApiController {
     public static final String TAG = "ApiController";
 
     public static Class[] AndroidServiceList = {
-            C1001.class, C1005.class, C1009.class, C1012.class, C1020.class, C1021.class,
+            C1001.class, C1002.class, C1005.class, C1006.class, C1009.class, C1012.class, C1020.class, C1021.class,
             C1022.class, C1023.class, C1024.class, C1025.class, C1026.class, C1027.class,
-            C1028.class, C1029.class
+            C1028.class, C1029.class, C1030.class
     };
 
     @PostMapping("/android_api")
@@ -73,18 +75,25 @@ public class ApiController {
         Gson gson = new Gson();
         PostBody body = gson.fromJson(bodyStr, PostBody.class);
 
-        if (TextUtils.isNumeric(body.shopId)) {
+        if (!TextUtils.isNumeric(body.shopId)) {
             LogUtils.e(TAG, "shop id is illegal");
             return Response.createError();
         }
 
         Object userId = request.getSession().getAttribute(V.userId);
 
-        if ("C1005".equals(body.cmd)) {
+        if ("C1002".equals(body.cmd) || "C1005".equals(body.cmd) || "C1006".equals(body.cmd) ||
+                "C1024".equals(body.cmd) || "C1025".equals(body.cmd) || "C1026".equals(body.cmd) ||
+                "C1027".equals(body.cmd) || "C1028".equals(body.cmd) || "C1029".equals(body.cmd) ||
+                "C1030".equals(body.cmd)) {
             if (userId == null) {
                 return Response.create(Code.Client.NEED_LOGIN, "还没有登录");
+            } else {
+                if (body.data == null) body.data = new JsonObject();
+                body.data.addProperty(V.userId, userId.toString());
             }
         }
+
 
         if (C1021.class.getSimpleName().equals(body.cmd)) {
             C1021 service = gson.fromJson(body.data, C1021.class);
@@ -101,7 +110,6 @@ public class ApiController {
                 return Response.create(Code.Client.ERROR, service.msg);
             }
         }
-
 
         for (Class cls : AndroidServiceList) {
             String claName = cls.getSimpleName();
@@ -128,7 +136,7 @@ public class ApiController {
         Gson gson = new Gson();
         PostBody body = gson.fromJson(bodyStr, PostBody.class);
 
-        if (TextUtils.isNumeric(body.shopId)) {
+        if (!TextUtils.isNumeric(body.shopId)) {
             LogUtils.e(TAG, "shop id is illegal");
             return Response.createError();
         }

@@ -6,12 +6,12 @@ import net.sf.oval.constraint.Size;
 import org.apache.ibatis.session.SqlSession;
 import top.funning.app.database.dal.AddressDAL;
 import top.funning.app.service.FnService;
+import top.knxy.library.oval.Number;
 
 public class C1025 extends FnService {
 
-    @Digits
+    @Number
     public String id;
-    @Length(min = 32, max = 32)
     public String userId;
 
     @Override

@@ -65,7 +65,7 @@
 
         <dependency>
             <groupId>top.knxy.library</groupId>
-            <artifactId>top.knxy.library.java</artifactId>
+            <artifactId>server</artifactId>
             <version>1.0</version>
         </dependency>
 

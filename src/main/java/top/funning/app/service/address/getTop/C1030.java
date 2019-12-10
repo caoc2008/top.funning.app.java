@@ -1,16 +1,13 @@
-package top.funning.app.service.address.list;
+package top.funning.app.service.address.getTop;
 
-import net.sf.oval.constraint.Length;
 import org.apache.ibatis.session.SqlSession;
 import top.funning.app.database.dal.AddressDAL;
 import top.funning.app.database.table.Address;
 import top.funning.app.service.FnService;
-import top.funning.app.service.address.ReturnEntity;
 import top.funning.app.service.address.Translator;
 
-import java.util.List;
+public class C1030 extends FnService {
 
-public class C1027 extends FnService {
 
     public String userId;
 
@@ -18,16 +15,16 @@ public class C1027 extends FnService {
     protected void run() throws Exception {
         SqlSession sqlSession = getSqlSession();
         AddressDAL dal = sqlSession.getMapper(AddressDAL.class);
-        List<Address> list = dal.getList(userId, header.shopId);
+        Address address = dal.getTop(userId, header.shopId);
 
-        Data data = new Data();
-        data.dataList = Translator.INSTANCES.toAddressList(list);
-        this.data = data;
+        if (address == null) {
+            createResult(this, 1001, "地址不存在");
+            return;
+        }
+
+        this.data = Translator.INSTANCES.toAddress(address);
 
         createSuccess(this);
     }
 
-    public static class Data {
-        public List<ReturnEntity> dataList;
-    }
 }

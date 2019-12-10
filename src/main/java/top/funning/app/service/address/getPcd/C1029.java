@@ -63,7 +63,6 @@ public class C1029 extends FnService {
         createSuccess(this);
     }
 
-
     public static class Data {
 
         public List<Province> provinces;

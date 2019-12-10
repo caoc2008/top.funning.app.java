@@ -6,10 +6,11 @@ import org.apache.ibatis.session.SqlSession;
 import top.funning.app.database.dal.AddressDAL;
 import top.funning.app.database.table.Address;
 import top.funning.app.service.FnService;
+import top.knxy.library.oval.Number;
 
 public class C1028 extends FnService {
 
-    @Digits
+    @Number
     public String id;
     @Length(min = 0, max = 16)
     public String name;
@@ -25,10 +26,8 @@ public class C1028 extends FnService {
     public String detail;
     @Length(min = 0, max = 8)
     public String poster;
-    @Length(min = 32, max = 32)
+
     public String userId;
-    @Length(min = 32, max = 32)
-    public String shopId;
 
     @Override
     protected void run() throws Exception {
@@ -44,7 +43,7 @@ public class C1028 extends FnService {
         address.setDetail(detail);
         address.setPoster(poster);
         address.setUserId(userId);
-        address.setShopId(shopId);
+        address.setShopId(header.shopId);
         dal.update(address);
         sqlSession.commit();
 

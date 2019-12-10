@@ -24,7 +24,7 @@ public class C1024 extends FnService {
     public String detail;
     @Length(min = 0, max = 8)
     public String poster;
-    @Length(min = 32, max = 32)
+
     public String userId;
 
     @Override

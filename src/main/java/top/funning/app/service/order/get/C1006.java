@@ -12,6 +12,8 @@ import top.funning.app.service.FnService;
 import top.funning.app.service.order.list.OrderCollection;
 import top.knxy.library.BaseService;
 import top.knxy.library.config.Code;
+import top.knxy.library.oval.Length;
+import top.knxy.library.oval.Number;
 import top.knxy.library.service.wechat.result.get.CL1002;
 import top.knxy.library.utils.TextUtils;
 
@@ -20,7 +22,7 @@ public class C1006 extends FnService {
     @NotNull
     public String userId;
 
-    @NotNull
+    @Length(value = 32)
     public String id;
 
 

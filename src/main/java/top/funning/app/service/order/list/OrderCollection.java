@@ -1,6 +1,7 @@
 package top.funning.app.service.order.list;
 
 import com.google.gson.Gson;
+import top.funning.app.config.C;
 import top.funning.app.service.StateTranslator;
 import top.knxy.library.utils.DateUtils;
 
@@ -14,7 +15,7 @@ public class OrderCollection {
         this.orders = new ArrayList<>();
         Gson gson = new Gson();
         for (top.funning.app.database.table.Order o : orders) {
-            this.orders.add(createOrder(o,gson));
+            this.orders.add(createOrder(o, gson));
         }
     }
 
@@ -48,6 +49,7 @@ public class OrderCollection {
 
         int goodAmount = 0;
         for (Order.Good good : order.goodList) {
+            good.body.imageUrl = C.App.imageHost + good.body.imageUrl;
             goodAmount += Integer.valueOf(good.amount);
         }
         order.goodAmount = String.valueOf(goodAmount);
@@ -86,7 +88,6 @@ public class OrderCollection {
         public String goodAmount;
 
         public List<Good> goodList;
-
 
 
         public String getId() {
@@ -248,7 +249,6 @@ public class OrderCollection {
         public void setGoodList(List<Good> goodList) {
             this.goodList = goodList;
         }
-
 
 
         public static class Good {

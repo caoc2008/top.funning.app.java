@@ -4,15 +4,15 @@ import top.knxy.library.bean.BaseTable;
 
 public class Good extends BaseTable {
 
-    private int id;
-    private String name;
-    private String description;
-    private String content;
-    private String imageUrl;
-    private String price;
-    private Integer type;
-    private Integer state;
-    private int shopId;
+    public int id;
+    public String name;
+    public String description;
+    public String content;
+    public String imageUrl;
+    public String price;
+    public Integer type;
+    public Integer state;
+    public int shopId;
 
     public int getShopId() {
         return shopId;
