@@ -3,6 +3,7 @@ package top.funning.app.service.address.getPcd;
 import com.google.gson.Gson;
 import top.funning.app.service.FnService;
 import top.funning.app.service.address.Translator;
+import top.knxy.library.config.Code;
 import top.knxy.library.utils.FileUtils;
 import top.knxy.library.utils.WebUtils;
 
@@ -12,7 +13,11 @@ import java.util.List;
 public class C1029 extends FnService {
 
     public static void main(String[] args) throws Exception {
-        new C1029().run();
+        C1029 service = new C1029();
+        service.start();
+        if (service.code == Code.Service.SUCCESS) {
+            FileUtils.fileWrite("/Users/faddenyin/workspace/a.json", new Gson().toJson(service.data));
+        }
     }
 
     @Override
@@ -30,7 +35,7 @@ public class C1029 extends FnService {
             City c = null;
             try {
                 c = WebUtils.getJson("http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/" + province.adcode + "_city.json", City.class);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 continue;
             }
@@ -42,8 +47,8 @@ public class C1029 extends FnService {
 
                 District d = null;
                 try {
-                     d = WebUtils.getJson("http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/" + city.adcode + "_district.json", District.class);
-                }catch (Exception e){
+                    d = WebUtils.getJson("http://datavmap-public.oss-cn-hangzhou.aliyuncs.com/areas/csv/" + city.adcode + "_district.json", District.class);
+                } catch (Exception e) {
                     e.printStackTrace();
                     continue;
                 }
@@ -59,7 +64,6 @@ public class C1029 extends FnService {
 
         this.data = data;
 
-        FileUtils.fileWrite("/Users/faddenyin/workspace/a.json",new Gson().toJson(this.data));
         createSuccess(this);
     }
 

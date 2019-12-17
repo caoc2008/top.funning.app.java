@@ -36,14 +36,14 @@ public class C {
     }
 
     public static class QiNiu {
-        public static final String AccessKey = getValue("qiniu.AccessKey");
-        public static final String SecretKey = getValue("qiniu.SecretKey");
+        public static final String accessKey = getValue("qiniu.accessKey");
+        public static final String secretKey = getValue("qiniu.secretKey");
         public static final String bucket = getValue("qiniu.bucket");
     }
 
     public static class Aliyun {
-        public static final String id = getValue("al.AccessKey.ID");
-        public static final String secrety = getValue("al.AccessKey.Secret");
+        public static final String id = getValue("al.accessKey.id");
+        public static final String secrety = getValue("al.accessKey.secret");
     }
 
     public static class Redis {
@@ -53,14 +53,22 @@ public class C {
         public static final int db = Integer.valueOf(getValue("spring.redis.db"));
     }
 
+    public static class AliPay{
+        public static final String appId = getValue("alipay.appId");
+        public static final String publicKey = getValue("alipay.publicKey");
+        public static final String privateKey = getValue("alipay.privateKey");
+        public static final String notifyUrl= getValue("alipay.notifyUrl");
+    }
+
     public static class WCPay {
         public static String p12Path;
+        public static String notifyUrl= getValue("wcpay.notifyUrl");
 
         static {
             if (C.App.isDebug) {
                 p12Path = "/Users/faddenyin/workspace/private/wechat_pay/";
             } else {
-                p12Path = getValue("p12_path");
+                p12Path = getValue("wcpay.p12Path");
             }
         }
     }
@@ -76,7 +84,6 @@ public class C {
     private static boolean getBool(String key) {
         return Boolean.valueOf(getValue(key));
     }
-
 
     private static String getVersion() {
         try {

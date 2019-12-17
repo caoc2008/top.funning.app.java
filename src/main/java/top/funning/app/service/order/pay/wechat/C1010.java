@@ -1,6 +1,5 @@
-package top.funning.app.service.order.pay;
+package top.funning.app.service.order.pay.wechat;
 
-import com.google.gson.Gson;
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
 import top.funning.app.config.C;
@@ -11,14 +10,13 @@ import top.funning.app.database.table.Order;
 import top.funning.app.database.table.Shop;
 import top.funning.app.database.table.User;
 import top.funning.app.service.FnService;
-import top.knxy.library.BaseService;
+import top.funning.app.service.address.poster.computer.C1013;
 import top.knxy.library.config.Code;
 import top.knxy.library.ServiceException;
 import top.knxy.library.utils.*;
 import top.knxy.library.service.wechat.pay.CL1001;
 
 import java.math.BigDecimal;
-import java.net.URLEncoder;
 
 public class C1010 extends FnService {
     public static final String TAG = "Order.Pay.C1010";
@@ -95,33 +93,18 @@ public class C1010 extends FnService {
         }
 
         //计算运费
-        String url = "http://api.map.baidu.com/geocoder/v2/?address=" +
-                URLEncoder.encode(address.provinceName + address.provinceName + address.cityName + address.detailInfo, "UTF-8") +
-                "&output=json&ak=tj3qu8wHTAFgQ3OmZbl8CLzTznki2VGR";
-        LocationInfo locationInfo = new Gson().fromJson(WebUtils.get(url), LocationInfo.class);
-
-        if (locationInfo.status != 0) {
-            throw new ServiceException("get location fail. " + url);
+        C1013 c1034 = new C1013();
+        c1034.countryName = address.countyName;
+        c1034.provinceName = address.provinceName;
+        c1034.cityName = address.cityName;
+        c1034.detailInfo = address.detailInfo;
+        c1034.start();
+        if (c1034.code != Code.Service.SUCCESS) {
+            throw new ServiceException(c1034.msg);
         }
 
-
-        double distance = LocationUtils.getDistance(
-                locationInfo.result.location.lat,
-                locationInfo.result.location.lng,
-                locationLat,
-                locationLng
-        );
-        distance = distance / 1000;
-
-        LogUtils.i(TAG, String.format("price = %s , distance = %s , lat1 = %s , lng2 = %s , lat2 = %s , lng2 = %s",
-                order.getPrice(), distance,
-                locationInfo.result.location.lat, locationInfo.result.location.lng,
-                locationLat, locationLng));
-
-        String poster = "6";
-        if (distance < 10 && new BigDecimal(order.getPrice()).compareTo(new BigDecimal(30)) >= 0) {
-            poster = "0";
-        }
+        C1013.Data data = (C1013.Data) c1034.data;
+        String poster = data.poster;
 
         order.setNote(note);
         order.setPoster(poster);
@@ -140,13 +123,12 @@ public class C1010 extends FnService {
         int result = mapper.update(order);
         session.commit();
         if (result < 1) {
-
             throw new ServiceException("订单修改失败 order id = " + id);
         }
 
         //支付
         UserDAL dal = session.getMapper(UserDAL.class);
-        User user = dal.getUser(userId,header.shopId);
+        User user = dal.getUser(userId, header.shopId);
         if (user == null) {
             throw new ServiceException("没有用户 user id = " + userId);
         }
@@ -172,6 +154,7 @@ public class C1010 extends FnService {
         cl1001.apiKey = shop.getWcpayApiKey();
         cl1001.ipAddress = C.App.ip;
         cl1001.domain = C.App.domain;
+        cl1001.notifyUrl = C.App.domain + C.WCPay.notifyUrl;
         cl1001.start();
         if (cl1001.code == Code.Service.SUCCESS) {
             this.data = cl1001.data;

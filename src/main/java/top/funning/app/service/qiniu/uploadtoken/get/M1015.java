@@ -17,8 +17,8 @@ public class M1015 extends FnService {
             return;
         }
 
-        String accessKey = C.QiNiu.AccessKey;
-        String secretKey = C.QiNiu.SecretKey;
+        String accessKey = C.QiNiu.accessKey;
+        String secretKey = C.QiNiu.secretKey;
         String bucket = C.QiNiu.bucket;
         String key = ServiceUtils.getUUid() + "." + suffix;
         Auth auth = Auth.create(accessKey, secretKey);
