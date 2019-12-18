@@ -77,6 +77,7 @@ public class AppController {
         service.outTradeNo = params.get("out_trade_no");
         service.totalAmount = params.get("total_amount");
         service.buyerPayAmount = params.get("buyer_pay_amount");
+        service.tradeNo = params.get("trade_no");
 
         service.start();
         if (service.code == Code.Service.SUCCESS) {

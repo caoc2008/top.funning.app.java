@@ -28,6 +28,8 @@ public class Order extends BaseTable {
     private int shopId;
     private int payMethod;
 
+    private String alipayTradeNo;
+
     public int getShopId() {
         return shopId;
     }
@@ -186,5 +188,13 @@ public class Order extends BaseTable {
 
     public void setPayMethod(int payMethod) {
         this.payMethod = payMethod;
+    }
+
+    public String getAlipayTradeNo() {
+        return alipayTradeNo;
+    }
+
+    public void setAlipayTradeNo(String alipayTradeNo) {
+        this.alipayTradeNo = alipayTradeNo;
     }
 }
