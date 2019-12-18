@@ -2,6 +2,7 @@ package top.funning.app.service.order.list;
 
 import com.google.gson.Gson;
 import top.funning.app.config.C;
+import top.funning.app.config.OrderPayMethod;
 import top.funning.app.service.StateTranslator;
 import top.knxy.library.utils.DateUtils;
 
@@ -42,6 +43,16 @@ public class OrderCollection {
         order.state = String.valueOf(o.getState());
         order.stateStr = StateTranslator.getNormalOrderStateStr(o.getState());
         order.userId = o.getUserId();
+        order.payMethod = String.valueOf(o.getPayMethod());
+
+        if (o.getPayMethod() == OrderPayMethod.ALIPAY) {
+            order.payMethodText = "支付宝支付";
+        } else if (o.getPayMethod() == OrderPayMethod.WECHAT) {
+            order.payMethodText = "微信支付";
+        } else {
+            order.payMethodText = "";
+        }
+
         if (o.getCreateDT() != null)
             order.createDT = DateUtils.dateToString(o.getCreateDT(), DateUtils.dateStringType2);
         if (o.getPayDT() != null)
@@ -49,7 +60,6 @@ public class OrderCollection {
 
         int goodAmount = 0;
         for (Order.Good good : order.goodList) {
-            good.body.imageUrl = C.App.imageHost + good.body.imageUrl;
             goodAmount += Integer.valueOf(good.amount);
         }
         order.goodAmount = String.valueOf(goodAmount);
@@ -88,7 +98,16 @@ public class OrderCollection {
         public String goodAmount;
 
         public List<Good> goodList;
+        public String payMethod;
+        public String payMethodText;
 
+        public String getPayMethodText() {
+            return payMethodText;
+        }
+
+        public void setPayMethodText(String payMethodText) {
+            this.payMethodText = payMethodText;
+        }
 
         public String getId() {
             return id;
@@ -250,6 +269,13 @@ public class OrderCollection {
             this.goodList = goodList;
         }
 
+        public String getPayMethod() {
+            return payMethod;
+        }
+
+        public void setPayMethod(String payMethod) {
+            this.payMethod = payMethod;
+        }
 
         public static class Good {
 

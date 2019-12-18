@@ -28,6 +28,7 @@
                 <div class="col-md-3"><label>消费者编号：</label>${data.userId}</div>
                 <div class="col-md-3"><label>下单时间：</label>${data.createDT}</div>
                 <div class="col-md-3"><label>支付时间：</label>${data.payDT}</div>
+                <div class="col-md-3"><label>支付方式：</label>${data.payMethodText}</div>
             </div>
             <div>
                 <label>运送地址：</label>

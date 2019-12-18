@@ -26,6 +26,7 @@ public class Order extends BaseTable {
     private Date createDT;
     private Date payDT;
     private int shopId;
+    private int payMethod;
 
     public int getShopId() {
         return shopId;
@@ -177,5 +178,13 @@ public class Order extends BaseTable {
 
     public void setPayDT(Date payDT) {
         this.payDT = payDT;
+    }
+
+    public int getPayMethod() {
+        return payMethod;
+    }
+
+    public void setPayMethod(int payMethod) {
+        this.payMethod = payMethod;
     }
 }

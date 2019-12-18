@@ -1,5 +1,5 @@
 $(function () {
-    Reminder.init();
+    Reminder.start();
 });
 
 
@@ -51,7 +51,7 @@ let LoadingDialog = {
 };
 
 
-let Reminder = {
+/*let Reminder = {
     isFirst: true,
     init: function () {
         let host;
@@ -78,14 +78,37 @@ let Reminder = {
         };
         socket.onmessage = function (message) {
             console.log("WebSocket", "message : " + message);
-            Manager.remind(message)
+            let data = JSON.parse(message.data);
+            Manager.remind(data)
         };
     },
+}*/
+
+let Reminder = {
+    isFirst: true,
+    start: function () {
+        Reminder.run();
+    },
+    run: function () {
+        console.log("Reminder.run");
+        Web.request("M1017", {}, {
+            onSuccess: function (data) {
+                Manager.remind(data.data);
+                setTimeout(function () {
+                    Reminder.run();
+                }, 10000);
+            },
+            onError: function (rp) {
+                //alert(rp.msg);
+                LoadingDialog.hide();
+            }
+        });
+    }
 }
 
 let Manager = {
     remind: function (data) {
-        data = JSON.parse(data.data);
+
         let groupUnDoCount = data.groupUnDoCount;
         let normalUnDoCount = data.normalUnDoCount;
         normalUnDoCount = Number(normalUnDoCount);
@@ -99,7 +122,6 @@ let Manager = {
             Reminder.isFirst = false;
         }
 
-        console.log(data);
 
         $("#normal_red_point").html(data.normalUnDoCount);
         if (normalUnDoCount < 1) {

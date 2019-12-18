@@ -42,7 +42,7 @@ import top.funning.app.service.order.pay.aliyun.C1033;
 import top.funning.app.service.order.pay.wechat.C1010;
 import top.funning.app.service.order.refund.admin.M1018;
 import top.funning.app.service.order.refund.client.C1008;
-import top.funning.app.service.pay.C1011;
+import top.funning.app.service.pay.confirm.wechat.C1011;
 import top.funning.app.service.qiniu.uploadtoken.get.M1015;
 import top.funning.app.bean.WcSessionInfo;
 import top.funning.app.service.shop.modify.M1029;

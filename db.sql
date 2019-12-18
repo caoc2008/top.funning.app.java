@@ -58,6 +58,11 @@ state = {"待付款" = 1,"准备中" = 2,"已完成" = 3,"退款中" = 4,"已取
 待付款 -> 准备中 -> 退款中 -> 已退款
 待付款 -> 准备中 -> 退款中 -> 已完成 (收单，准备(开切，包装)，配送)
 **/
+
+/**
+ * payMethod = { "支付宝支付" = 1 , "微信支付" = 2 }
+ */
+
 create table `Order`
 (
   id           char(32)       not null
@@ -80,7 +85,8 @@ create table `Order`
   userId       int            null,
   createDT     datetime       not null,
   payDT        datetime       null,
-  shopId       int
+  shopId       int,
+  payMethod    int
 );
 
 create table `Shop`(
