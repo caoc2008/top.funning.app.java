@@ -25,7 +25,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="/admin/css/common.css?version=${version}" rel="stylesheet">
+    <link href="/admin/css/common.css" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript
         ================================================== -->
@@ -47,8 +47,8 @@
         feather.replace()
     </script>
 
-    <script src="/js/common.js?version=${version}"></script>
-    <script src="/admin/js/index.js?version=${version}"></script>
+    <script src="/js/common.js"></script>
+    <script src="/admin/js/index.js"></script>
 </head>
 
 

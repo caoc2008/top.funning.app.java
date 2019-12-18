@@ -31,7 +31,7 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="/css/login.css?v=${version}" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
 
 
 

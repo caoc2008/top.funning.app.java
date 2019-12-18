@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="/admin/good/type/css/list.css" rel="stylesheet">
-<script src="/admin/good/type/js/list.js?version=${version}"></script>
+<script src="/admin/good/type/js/list.js"></script>
 <div role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 main">
 
     <div class="type_add">

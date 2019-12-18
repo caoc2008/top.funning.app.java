@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link href="/admin/good/css/search.css?v=${version}" rel="stylesheet">
+<link href="/admin/good/css/search.css" rel="stylesheet">
 <script src="/js/qiniu.min.js"></script>
-<script src="/admin/good/js/add.js?v=${version}"></script>
+<script src="/admin/good/js/add.js"></script>
 <script>
 
     let imageHost = "${imageHost}";

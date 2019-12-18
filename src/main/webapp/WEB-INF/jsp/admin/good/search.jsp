@@ -10,7 +10,7 @@
 
 <link href="/admin/good/css/search.css" rel="stylesheet">
 <script src="/js/qiniu.min.js"></script>
-<script src="/admin/good/js/search.js?time=${version}"></script>
+<script src="/admin/good/js/search.js"></script>
 <script>
     let imageHost = "${imageHost}";
     let imageUrl = "${data.imageUrl}";

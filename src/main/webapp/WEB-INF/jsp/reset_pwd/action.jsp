@@ -38,9 +38,9 @@
             crossorigin="anonymous"></script>
 
     <!-- Custom styles for this template -->
-    <link href="/css/login.css?v=${version}" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/js/reset_pwd.js?v=${version}"></script>
+    <script type="text/javascript" src="/js/reset_pwd.js"></script>
 </head>
 
 <body>

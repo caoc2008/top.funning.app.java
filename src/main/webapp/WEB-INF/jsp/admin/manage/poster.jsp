@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link href="/admin/css/poster.css?version=${version}" rel="stylesheet"/>
+<link href="/admin/css/poster.css" rel="stylesheet"/>
 <script src="/js/qiniu.min.js"></script>
-<script src="/admin/js/poster.js?version=${version}"></script>
+<script src="/admin/js/poster.js"></script>
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
     <input type="file" id="image_file">
     <div id="msg" class="msg lead">${msg}</div>

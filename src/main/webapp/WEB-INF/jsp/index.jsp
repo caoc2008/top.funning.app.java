@@ -21,7 +21,7 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
     <!-- Custom styles for this template -->
-    <link href="/css/index.css?v=${version}" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -87,7 +87,7 @@
                 </div>
 
                 <h2>查看详情</h2>
-                <img class="img-qr-code" src="http://image.www.funning.top/image/qr_code.png?v=${version}"/>
+                <img class="img-qr-code" src="http://image.www.funning.top/image/qr_code.png"/>
 
             </div>
             <div class="right col-md-5">
@@ -104,39 +104,39 @@
             <div class="carousel-item active">
                 <div class="carousel-caption row">
                     <div class="col-md-4">
-                        <img src="http://image.www.funning.top/image/actors/IMG_0003.png?v=${version}">
+                        <img src="http://image.www.funning.top/image/actors/IMG_0003.png">
                     </div>
                     <div class="col-md-4">
-                        <img src="http://image.www.funning.top/image/actors/IMG_0004.png?v=${version}">
+                        <img src="http://image.www.funning.top/image/actors/IMG_0004.png">
                     </div>
                     <div class="col-md-4">
-                        <img src="http://image.www.funning.top/image/actors/IMG_0005.png?v=${version}">
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="carousel-caption row">
-                    <div class="col-md-4">
-                        <img src="http://image.www.funning.top/image/actors/IMG_0006.png?v=${version}">
-                    </div>
-                    <div class="col-md-4">
-                        <img src="http://image.www.funning.top/image/actors/IMG_0007.png?v=${version}">
-                    </div>
-                    <div class="col-md-4">
-                        <img src="http://image.www.funning.top/image/actors/IMG_0008.png?v=${version}">
+                        <img src="http://image.www.funning.top/image/actors/IMG_0005.png">
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="carousel-caption row">
                     <div class="col-md-4">
-                        <img src="http://image.www.funning.top/image/actors/IMG_0009.png?v=${version}">
+                        <img src="http://image.www.funning.top/image/actors/IMG_0006.png">
                     </div>
                     <div class="col-md-4">
-                        <img src="http://image.www.funning.top/image/actors/IMG_0010.png?v=${version}">
+                        <img src="http://image.www.funning.top/image/actors/IMG_0007.png">
                     </div>
                     <div class="col-md-4">
-                        <img src="http://image.www.funning.top/image/actors/IMG_0011.png?v=${version}">
+                        <img src="http://image.www.funning.top/image/actors/IMG_0008.png">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="carousel-caption row">
+                    <div class="col-md-4">
+                        <img src="http://image.www.funning.top/image/actors/IMG_0009.png">
+                    </div>
+                    <div class="col-md-4">
+                        <img src="http://image.www.funning.top/image/actors/IMG_0010.png">
+                    </div>
+                    <div class="col-md-4">
+                        <img src="http://image.www.funning.top/image/actors/IMG_0011.png">
                     </div>
                 </div>
             </div>

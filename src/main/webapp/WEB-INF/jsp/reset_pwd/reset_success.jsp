@@ -28,7 +28,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- Custom styles for this template -->
-    <link href="/css/login.css?v=${version}" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
 </head>
 
 <body>

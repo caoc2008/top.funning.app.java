@@ -7,9 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<link href="/admin/manage/css/wechatmini.css?version=${version}" rel="stylesheet"/>
+<link href="/admin/manage/css/wechatmini.css" rel="stylesheet"/>
 <script src="/js/qiniu.min.js"></script>
-<script src="/admin/manage/js/wechatmini.js?version=${version}"></script>
+<script src="/admin/manage/js/wechatmini.js"></script>
 
 
 <script type="text/javascript">
