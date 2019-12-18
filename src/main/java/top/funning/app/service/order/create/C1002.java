@@ -3,6 +3,7 @@ package top.funning.app.service.order.create;
 import com.google.gson.Gson;
 import net.sf.oval.constraint.MinSize;
 import org.apache.ibatis.session.SqlSession;
+import top.funning.app.config.OrderPayState;
 import top.funning.app.database.dal.GoodDAL;
 import top.funning.app.database.dal.OrderDAL;
 import top.funning.app.database.table.Good;
@@ -56,7 +57,7 @@ public class C1002 extends FnService {
         order.setPrice(price.toString());
         order.setCreateDT(new Date());
         order.setUserId(userId);
-        order.setState(1);
+        order.setState(OrderPayState.waitPay);
         order.setShopId(Integer.valueOf(header.shopId));
 
         int result = orderDAL.insert(order);

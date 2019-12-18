@@ -2,6 +2,7 @@ package top.funning.app.service.order.refund.client;
 
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
+import top.funning.app.config.OrderPayState;
 import top.funning.app.controller.admin.OrderReminder;
 import top.funning.app.database.dal.OrderDAL;
 import top.funning.app.database.table.Order;
@@ -17,7 +18,7 @@ public class C1008 extends FnService {
     @Override
     public void run() throws Exception {
         Order order = new Order();
-        order.setState(4);
+        order.setState(OrderPayState.refunding);
         order.setUserId(userId);
         order.setId(id);
 

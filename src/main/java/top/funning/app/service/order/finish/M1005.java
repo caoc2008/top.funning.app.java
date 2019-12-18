@@ -3,6 +3,7 @@ package top.funning.app.service.order.finish;
 import net.sf.oval.constraint.Length;
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
+import top.funning.app.config.OrderPayState;
 import top.funning.app.database.dal.OrderDAL;
 import top.funning.app.database.table.Order;
 import top.funning.app.service.FnService;
@@ -27,7 +28,7 @@ public class M1005 extends FnService {
             throw new Exception("修改不合法");
         }
 
-        order.setState(3);
+        order.setState(OrderPayState.finish);
         operation.changeState(order);
         session.commit();
 

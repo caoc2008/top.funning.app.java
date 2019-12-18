@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
 import top.funning.app.config.C;
+import top.funning.app.config.OrderPayState;
 import top.funning.app.database.dal.OrderDAL;
 import top.funning.app.database.dal.ShopDAL;
 import top.funning.app.database.table.Order;
@@ -54,7 +55,7 @@ public class C1006 extends FnService {
             cl1002.apiKey = shop.getWcpayApiKey();
             cl1002.start();
             if (cl1002.code == Code.Service.SUCCESS) {
-                order.setState(2);
+                order.setState(OrderPayState.doing);
                 dal.changeState(order);
                 session.commit();
                 createSuccess(this);

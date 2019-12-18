@@ -2,6 +2,7 @@ package top.funning.app.service.order.confirm;
 
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
+import top.funning.app.config.OrderPayState;
 import top.funning.app.database.dal.OrderDAL;
 import top.funning.app.database.table.Order;
 import top.funning.app.service.FnService;
@@ -31,7 +32,7 @@ public class C1004 extends FnService {
         }
 
         if (order.getState() == 1) {
-            order.setState(7);
+            order.setState(OrderPayState.paid);
             int result = mapper.changeState(order);
             session.commit();
             if (result < 1) {

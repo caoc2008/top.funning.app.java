@@ -52,6 +52,7 @@ create table `Good`
 
 
 /**
+
 state = {"待付款" = 1,"准备中" = 2,"已完成" = 3,"退款中" = 4,"已取消" = 5,"已退款" = 6,"已付款" = 7}
 待付款 -> 准备中 -> 已完成
 待付款 -> 已取消
@@ -86,7 +87,8 @@ create table `Order`
   createDT     datetime       not null,
   payDT        datetime       null,
   shopId       int,
-  payMethod    int
+  payMethod    int,
+  alipayTradeNo varchar(64)
 );
 
 create table `Shop`(

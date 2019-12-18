@@ -3,6 +3,7 @@ package top.funning.app.service.pay.confirm.alipay;
 import net.sf.oval.constraint.NotNull;
 import org.apache.ibatis.session.SqlSession;
 import top.funning.app.config.OrderPayMethod;
+import top.funning.app.config.OrderPayState;
 import top.funning.app.controller.admin.OrderReminder;
 import top.funning.app.database.dal.OrderDAL;
 import top.funning.app.database.table.Order;
@@ -22,6 +23,8 @@ public class C1035 extends FnService {
     public String totalAmount;
     @NotNull
     public String buyerPayAmount;
+    @NotNull
+    public String tradeNo;
 
 
     @Override
@@ -40,9 +43,10 @@ public class C1035 extends FnService {
         }
 
         order.setPayDT(new Date());
-        order.setState(2);
+        order.setState(OrderPayState.doing);
         order.setShopId(Integer.valueOf(header.shopId));
         order.setPayMethod(OrderPayMethod.ALIPAY);
+        order.setAlipayTradeNo(tradeNo);
         int result = dal.update(order);
         session.commit();
         if (result < 1) {

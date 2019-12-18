@@ -3,6 +3,7 @@ package top.funning.app.service.pay.confirm.wechat;
 import org.apache.ibatis.session.SqlSession;
 import top.funning.app.config.C;
 import top.funning.app.config.OrderPayMethod;
+import top.funning.app.config.OrderPayState;
 import top.funning.app.controller.admin.OrderReminder;
 import top.funning.app.database.dal.OrderDAL;
 import top.funning.app.database.dal.ShopDAL;
@@ -74,7 +75,7 @@ public class C1011 extends FnService {
             }
 
             order.setPayDT(new Date());
-            order.setState(2);
+            order.setState(OrderPayState.doing);
             order.setShopId(Integer.valueOf(header.shopId));
             order.setPayMethod(OrderPayMethod.WECHAT);
             int result = dal.update(order);
