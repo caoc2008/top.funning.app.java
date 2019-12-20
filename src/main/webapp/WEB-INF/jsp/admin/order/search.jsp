@@ -47,7 +47,7 @@
                 <c:forEach items="${data.goodList}" var="good">
                     <div class="col-md-2">
                         <div goodId="${good.body.id}" class="item">
-                            <img alt="${good.body.name}" src="${imageHost}${good.body.imageUrl}"/>
+                            <img alt="${good.body.name}" src="${good.body.imageUrl}"/>
                             <div><label>商品名称：</label>${good.body.name}</div>
                             <div class="text_color_orange"><label>商品价格：</label>${good.body.price}</div>
                             <div class="text_color_orange"><label>购买数量：</label>${good.amount}</div>
