@@ -12,13 +12,13 @@ import java.util.List;
 
 public class C1029 extends FnService {
 
-    public static void main(String[] args) throws Exception {
+/*    public static void main(String[] args) throws Exception {
         C1029 service = new C1029();
         service.start();
         if (service.code == Code.Service.SUCCESS) {
             FileUtils.fileWrite("/Users/faddenyin/workspace/a.json", new Gson().toJson(service.data));
         }
-    }
+    }*/
 
     @Override
     protected void run() throws Exception {

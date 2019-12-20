@@ -20,9 +20,14 @@ public interface OrderDAL {
     Order getOrderByUser(Order order);
 
     @Select("select id,goods,price,poster,amount,provinceName,cityName,countyName,shopId," +
-            "detailInfo,telNumber,userName,nationalCode,postalCode,note,state,userId,createDT,payDT " +
+            "detailInfo,telNumber,userName,nationalCode,postalCode,note,state,userId,createDT,payDT,alipayTradeNo,payMethod " +
             "from `Order` where id=#{id} and shopId = #{shopId} limit 1")
     Order getOrder(@Param("id") String id, @Param("shopId") String shopId);
+
+    @Select("select id,goods,price,poster,amount,provinceName,cityName,countyName,shopId," +
+            "detailInfo,telNumber,userName,nationalCode,postalCode,note,state,userId,createDT,payDT " +
+            "from `Order` where id=#{id} limit 1")
+    Order getOrderByPayRefund(@Param("id") String id);
 
     @Update("update `Order` set note = #{note}," +
             "poster = #{poster}," +
@@ -37,7 +42,9 @@ public interface OrderDAL {
             "postalCode = #{postalCode}," +
             "payDT = #{payDT}," +
             "userName = #{userName}," +
-            "state = #{state} " +
+            "state = #{state}, " +
+            "payMethod = #{payMethod}, " +
+            "alipayTradeNo = #{alipayTradeNo} " +
             "where id = #{id} and userId = #{userId} and shopId = #{shopId} ")
     int update(Order order);
 

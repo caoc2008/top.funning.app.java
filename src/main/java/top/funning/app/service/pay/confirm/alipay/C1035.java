@@ -33,7 +33,7 @@ public class C1035 extends FnService {
         SqlSession session = getSqlSession();
         String orderId = outTradeNo;
         OrderDAL dal = session.getMapper(OrderDAL.class);
-        Order order = dal.getOrder(orderId, header.shopId);
+        Order order = dal.getOrderByPayRefund(orderId);
 
         BigDecimal wcMoney = new BigDecimal(buyerPayAmount);
         BigDecimal ownMoney = new BigDecimal(order.getAmount());
@@ -44,7 +44,6 @@ public class C1035 extends FnService {
 
         order.setPayDT(new Date());
         order.setState(OrderPayState.doing);
-        order.setShopId(Integer.valueOf(header.shopId));
         order.setPayMethod(OrderPayMethod.ALIPAY);
         order.setAlipayTradeNo(tradeNo);
         int result = dal.update(order);

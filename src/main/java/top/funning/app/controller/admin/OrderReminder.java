@@ -48,12 +48,12 @@ public class OrderReminder {
 
 
     public static String getData() {
-        M1017 service = new M1017();
+        /*M1017 service = new M1017();
         service.start();
         Gson gson = new Gson();
         if (service.code == Code.Service.SUCCESS) {
             return gson.toJson(service.data);
-        }
+        }*/
         return null;
     }
 

@@ -60,6 +60,7 @@ public class OrderCollection {
 
         int goodAmount = 0;
         for (Order.Good good : order.goodList) {
+            good.body.imageUrl = C.App.imageHost + good.body.imageUrl;
             goodAmount += Integer.valueOf(good.amount);
         }
         order.goodAmount = String.valueOf(goodAmount);

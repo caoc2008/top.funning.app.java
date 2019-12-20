@@ -1,7 +1,7 @@
 package top.funning.app.config;
 
 import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader; 
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import top.knxy.library.utils.FileUtils;
 
 import java.io.File;
@@ -17,14 +17,11 @@ public class C {
         public static final String ip = getValue("app.ip");
         public static final String imageHost = getValue("app.image.host");
         public static String domain;
-        public static String version;
 
         static {
             if (isDebug) {
-                version =  String.valueOf(new Date().getTime());
                 domain = "http://127.0.0.1:" + getValue("server.port");
             } else {
-                version = getVersion();
                 domain = getValue("app.domain");
             }
         }
@@ -53,16 +50,16 @@ public class C {
         public static final int db = Integer.valueOf(getValue("spring.redis.db"));
     }
 
-    public static class AliPay{
+    public static class AliPay {
         public static final String appId = getValue("alipay.appId");
         public static final String publicKey = getValue("alipay.publicKey");
         public static final String privateKey = getValue("alipay.privateKey");
-        public static final String notifyUrl= getValue("alipay.notifyUrl");
+        public static final String notifyUrl = getValue("alipay.notifyUrl");
     }
 
     public static class WCPay {
         public static String p12Path;
-        public static String notifyUrl= getValue("wcpay.notifyUrl");
+        public static String notifyUrl = getValue("wcpay.notifyUrl");
 
         static {
             if (C.App.isDebug) {
@@ -83,19 +80,5 @@ public class C {
 
     private static boolean getBool(String key) {
         return Boolean.valueOf(getValue(key));
-    }
-
-    private static String getVersion() {
-        try {
-            String rootPath = System.getProperty("user.dir");
-            MavenXpp3Reader reader = new MavenXpp3Reader();
-            String myPom = rootPath + File.separator + "pom.xml";
-            Model model = reader.read(new FileReader(myPom));
-            String version = model.getVersion();//获取版本号
-            return version;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

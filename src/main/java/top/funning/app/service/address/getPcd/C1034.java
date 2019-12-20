@@ -22,14 +22,14 @@ import java.util.Map;
 
 public class C1034 extends FnService {
 
-    public static void main(String[] args) throws Exception {
+    /*public static void main(String[] args) throws Exception {
         C1034 service = new C1034();
         service.start();
         if (service.code == Code.Service.SUCCESS) {
             FileUtils.fileWrite("/Users/faddenyin/workspace/a.json", new Gson().toJson(service.data));
         }
     }
-
+*/
     @Override
     protected void run() throws Exception {
         String htmlText = getHtml("http://xzqh.mca.gov.cn/map");
