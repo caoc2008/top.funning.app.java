@@ -53,6 +53,7 @@ public class C {
     public static class AliPay {
         public static final String appId = getValue("alipay.appId");
         public static final String publicKey = getValue("alipay.publicKey");
+        public static final String serverPublicKey = getValue("alipay.serverPublicKey");
         public static final String privateKey = getValue("alipay.privateKey");
         public static final String notifyUrl = getValue("alipay.notifyUrl");
     }

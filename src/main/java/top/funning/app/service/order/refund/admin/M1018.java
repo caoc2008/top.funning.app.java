@@ -39,9 +39,9 @@ public class M1018 extends FnService {
         OrderDAL orderDal = session.getMapper(OrderDAL.class);
         Order order = orderDal.getOrder(id, header.shopId);
 
-        if (order.getState() != 4) {
+        if (order.getState() != OrderPayState.refunding) {
 
-            throw new ServiceException("修改不合法");
+            throw new ServiceException("修改不合法，order state = " + order.getState());
         }
 
         ShopDAL shopDAL = session.getMapper(ShopDAL.class);
@@ -74,9 +74,10 @@ public class M1018 extends FnService {
                 createResult(this, cl1003.code, cl1003.msg);
             }
         } else if (payMethod == OrderPayMethod.ALIPAY) {
+
             AlipayClient alipayClient = new DefaultAlipayClient(
                     "https://openapi.alipay.com/gateway.do",
-                    C.AliPay.appId, C.AliPay.privateKey, "json", "utf-8", C.AliPay.publicKey, "RSA2"); //获得初始化的AlipayClient
+                    C.AliPay.appId, C.AliPay.privateKey, "json", "utf-8", C.AliPay.serverPublicKey, "RSA2"); //获得初始化的AlipayClient
             AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();//创建API对应的request类
 
             HashMap<String, String> map = new HashMap<>();
@@ -84,7 +85,8 @@ public class M1018 extends FnService {
             map.put("trade_no", order.getAlipayTradeNo());
             map.put("refund_amount", order.getAmount());
 
-            request.setBizContent(new Gson().toJson(map));//设置业务参数
+            String content = new Gson().toJson(map);
+            request.setBizContent(content);//设置业务参数
             AlipayTradeRefundResponse response = alipayClient.execute(request);//通过alipayClient调用API，获得对应的response类
 
             LogUtils.d(TAG, response.getBody());
@@ -101,5 +103,4 @@ public class M1018 extends FnService {
             }
         }
     }
-
 }
