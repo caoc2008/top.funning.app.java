@@ -10,7 +10,7 @@
     </parent>
     <groupId>top.funning.app</groupId>
     <artifactId>top.funning.app</artifactId>
-    <version>4.0.5</version>
+    <version>4.0.6</version>
     <name>top.funning.app</name>
     <description>Funning App Server for Spring Boot</description>
 

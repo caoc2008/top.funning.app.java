@@ -69,7 +69,7 @@ public interface OrderDAL {
                         @Param("shopId") String shopId);
 
 
-    @Select("select id,state from `Order` where id=#{id} and userId=#{userId} and shopId = #{shopId} limit 1")
+    @Select("select id,state from `Order` where id=#{id} and shopId = #{shopId} limit 1")
     Order getState(@Param("id") String id, @Param("shopId") String shopId);
 
 
