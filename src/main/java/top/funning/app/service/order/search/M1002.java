@@ -22,9 +22,14 @@ public class M1002 extends FnService {
 
         SqlSession session = getSqlSession();
         OrderDAL operation = session.getMapper(OrderDAL.class);
-        Order order = operation.getOrder(id,header.shopId);
+        Order order = operation.getOrder(id, header.shopId);
 
-        this.data = OrderCollection.createOrder(order,new Gson());
+        if (order == null) {
+            createError(this, "订单不存在");
+            return;
+        }
+
+        this.data = OrderCollection.createOrder(order, new Gson());
 
         createSuccess(this);
     }

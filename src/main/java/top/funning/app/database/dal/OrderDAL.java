@@ -8,8 +8,6 @@ import top.knxy.library.utils.TextUtils;
 import java.util.List;
 
 public interface OrderDAL {
-
-
     @Insert("insert into `Order`(id,goods,price,createDT,userId,state,shopId)" +
             " values(#{id},#{goods},#{price},#{createDT},#{userId},#{state},#{shopId})")
     int insert(Order order);
@@ -49,7 +47,7 @@ public interface OrderDAL {
     int update(Order order);
 
     @Select("select id,price,poster,amount,telNumber,userName,state,userId,createDT,payDT " +
-            "from `Order` where state=2 or state=4 and shopId = #{shopId}  order by payDT desc " +
+            "from `Order` where (state=2 or state=4) and shopId = #{shopId}  order by payDT desc " +
             "limit #{index},#{size}")
     List<Order> getUndoList(@Param("index") int index,@Param("size") int size, @Param("shopId") String shopId);
 
@@ -73,7 +71,7 @@ public interface OrderDAL {
     Order getState(@Param("id") String id, @Param("shopId") String shopId);
 
 
-    @Select("select count(*) from `Order` where state=2 or state=4 and shopId=#{shopId}")
+    @Select("select count(*) from `Order` where (state=2 or state=4) and shopId=#{shopId}")
     int getUnDoNumber(@Param("shopId") String shopId);
 
     @Update("update `Order` set state = #{state} " +
