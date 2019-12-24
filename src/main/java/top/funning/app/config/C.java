@@ -1,19 +1,14 @@
 package top.funning.app.config;
 
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import top.knxy.library.utils.FileUtils;
-
-import java.io.File;
-import java.io.FileReader;
-import java.util.Date;
 
 public class C {
 
 
     public static class App {
         public static final boolean isDebug = getBool("app.isDebug");
-        public static final String name = getValue("app.name");
+        public static final String name = "发宁杂货铺";
+        public static final String phone =  getValue("app.phone");;
         public static final String ip = getValue("app.ip");
         public static final String imageHost = getValue("app.image.host");
         public static String domain;
