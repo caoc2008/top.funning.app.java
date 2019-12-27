@@ -1,6 +1,9 @@
 package top.funning.app.service.pay.confirm.wechat;
 
 import org.apache.ibatis.session.SqlSession;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import top.funning.app.config.C;
 import top.funning.app.config.OrderPayMethod;
 import top.funning.app.config.OrderPayState;
@@ -12,31 +15,34 @@ import top.funning.app.database.table.Shop;
 import top.funning.app.service.FnService;
 import top.knxy.library.BaseService;
 import top.knxy.library.ServiceException;
+import top.knxy.library.utils.LogUtils;
 import top.knxy.library.utils.ServiceUtils;
 import top.knxy.library.utils.TextUtils;
 import top.knxy.library.utils.XmlUtils;
 import top.knxy.library.vehicle.wepay.ConfirmInfo;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_7
  */
 public class C1011 extends FnService {
+    public final static String TAG = "C1011";
+
     public String body;
 
     @Override
     protected void run() throws Exception {
-        Map<String, Object> map = XmlUtils.xmlStrToMap(body);
-        Set<String> keys = map.keySet();
+        Document doc = DocumentHelper.parseText(body); // 将字符串转为XML
+        Element rootElt = doc.getRootElement(); // 获取根节点
 
         TreeMap<Object, Object> tMap = new TreeMap<>();
-        for (String key : keys) {
-            tMap.put(key, map.get(key));
+        List<Element> elements = rootElt.elements();
+        for (Element element : elements) {
+            element.getName();
+            tMap.put(element.getName(), element.getData().toString());
+            LogUtils.i(TAG, element.getName() + ":" + element.getData().toString());
         }
 
         SqlSession session = getSqlSession();
@@ -50,7 +56,7 @@ public class C1011 extends FnService {
         String sign = ServiceUtils.getWXPaySignValue(tMap, shop.getWcpayApiKey());
 
         if (!sign.equals(tMap.get("sign"))) {
-            throw new ServiceException("签名失败 order id (out_trade_no) = " + map.get("out_trade_no"));
+            throw new ServiceException("签名失败 order id (out_trade_no) = " + tMap.get("out_trade_no"));
         }
 
         ConfirmInfo info = XmlUtils.xmlStrToBean(body, ConfirmInfo.class);
